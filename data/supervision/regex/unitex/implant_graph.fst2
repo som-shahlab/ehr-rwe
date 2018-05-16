@@ -1,0 +1,136 @@
+0000000007
+-1 implant_graph_102017
+: -2 3 -3 3 -4 3 -5 3 -6 3 -7 3 15 2 8 1 
+: 8 4 
+: 2 6 1 5 
+t 
+: 9 7 
+: 16 8 
+: 16 9 
+: 10 10 
+: 6 11 
+: 18 13 3 12 
+: 12 14 
+t 15 15 
+: 4 16 
+: 17 17 
+: 11 18 
+: 2 19 
+: 15 20 
+: 19 21 
+: 13 22 
+: 16 23 
+: 1 24 
+: 7 3 
+: 14 3 
+: 18 13 
+: 16 25 
+: 5 3 
+f 
+-2 zimmer_epic_implant
+: 21 2 20 1 
+: 21 3 
+: 24 5 23 3 22 4 
+: 26 6 
+: 23 3 
+: 25 3 
+t 
+f 
+-3 zimmer_ml_implant
+: 20 1 
+: 29 3 27 2 
+: 28 4 
+: 30 5 
+t 
+: 31 2 
+f 
+-4 zimmer_versus_implant
+: 20 1 
+: 32 2 
+: 33 3 
+t 
+f 
+-5 zimmer_longevity_implant
+: 34 2 20 1 
+: 34 2 
+: 37 3 
+: 36 4 
+: 36 6 35 5 
+: 19 7 
+: 36 8 35 5 
+: 38 9 
+: 36 10 35 5 
+t 
+: 35 5 
+f 
+-6 stryker_alumina_head
+: 40 2 39 1 
+: 41 3 
+: 36 4 
+: 36 5 
+: 42 7 36 6 
+: 40 9 36 8 
+: 42 7 
+: 39 10 
+: 40 9 36 11 
+: 19 10 
+: 43 12 
+: 40 9 
+t 
+f 
+-7 stryker_alumina_liner
+: 39 1 
+: 36 2 
+: 44 3 36 4 35 3 
+: 45 5 
+: 44 3 36 6 35 3 
+t 
+: 44 3 35 3 
+f 
+%<E>
+%<HIPMANUFACTURER>/$manu$
+%<HIPMODEL>/$model$
+%system
+%by
+%<E>/|$manu.LEMMA$||$model.LEMMA$|
+%<E>/**$manu.LEMMA$**
+%<E>/##$model.LEMMA$##
+%[
+%ID
+%=
+%<NB>
+%$d(
+%$d)
+%<E>/D=$d$
+%$<
+%$>
+%<TOKEN><<reamers?>>
+%$![0
+%$]
+%zimmer
+%epic
+%femoral
+%stem
+%full
+%coat
+%<E>/|zimmer||epoch|
+%ML
+%<E>/|zimmer||ml|
+%m
+%/
+%l
+%versus
+%<E>/|zimmer||versys|
+%longevity
+%liner
+%<TOKEN>
+%$[1
+%<E>/|zimmer||longevity|
+%alumina
+%head
+%$[2
+%$*
+%<E>/|stryker||alumina/CERAMIC_HEAD|
+%insert
+%<E>/|stryker||alumina/CERAMIC_LINER|
+f
