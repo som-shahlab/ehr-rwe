@@ -1,66 +1,128 @@
 # coding=utf-8
 
+import re
+
+from rwe.extractlib.utils import load_dict
+from rwe.extractlib.negex import *
+
+from snorkel.lf_helpers import *
+
+dict_pain = load_dict("../data/supervision/dicts/nociception/nociception.curated.txt")
+dict_anatomy = load_dict("../data/supervision/dicts/anatomy/fma_human_anatomy.bz2")
+
+negex = NegEx("../data/supervision/dicts/negex")
+
 def regex_in_text(regex, text):
+    """
+    Check for occurrences of regex in text
+
+    :param regex: a regular expression
+    :param text: free text
+    :return: boolean; True if regex is matched text, False otherwise
+    """
+
     matcher = re.compile(regex, flags=re.I)
     result = matcher.search(text)
     return True if result is not None else False
 
 def text_contains_pain_mention(text):
+    """
+    Check for occurrences of any pain dictionary term in text
+
+    :param text: free text
+    :return: boolean; True if any pain dictionary term is found in text, False otherwise
+    """
 
     b = any(term in text for term in dict_pain)
 
     return b
 
 def text_contains_anatomy_mention(text):
+    """
+    Check for occurrences of any anatomy dictionary term in text
+
+    :param text: free text
+    :return: boolean; True if any pain dictionary term is found in text, False otherwise
+    """
 
     b = any(term in text for term in dict_anatomy)
 
     return b
 
 def list_contains_pain_mention(list):
+    """
+    Check for occurrences of any member of list in pain dictionary
+
+    :param list: a list of tokens
+    :return: boolean; True if any member of list is found in pain dictionary, False otherwise
+    """
     b = any(term in dict_pain for term in list)
 
     return b
 
 def list_contains_anatomy_mention(list):
+    """
+    Check for occurrences of any member of list in anatomy dictionary
+
+    :param list: a list of tokens
+    :return: boolean; True if any member of list is found in anatomy dictionary, False otherwise
+    """
+
     b = any(term in dict_anatomy for term in list)
 
     return b
 
 def far_apart(c):
     """
-    Check for anatomy and pain words that are
+    Check for anatomy and pain entities in a pain-anatomy candidate that are
     more than 10 words apart if anatomy mention is first
     or more than 16 words apart if pain mention is first
 
     :param c: pain-anatomy candidate
-    :return:
+    :return: boolean; True if anatomy and pain entities are far apart, False otherwise
     """
     distance = len(list(get_between_tokens(c)))
 
-    return True if ((distance > 10 and c.pain.char_end > c.anatomy.char_end) or (distance > 16 and c.pain.char_end < c.anatomy.char_end)) else False
+    b1 = distance > 10
+    b1 &= c.pain.char_end > c.anatomy.char_end
+
+    b2 = distance > 16
+    b2 &= c.pain.char_end < c.anatomy.char_end
+
+    b = b1 or b2
+
+    return True if b else False
 
 def less_far_apart(c):
     """
-    Check for anatomy and pain words that are
+    Check for anatomy and pain entities in a pain-anatomy candidate that are
     more than 5 words apart if anatomy mention is first
     or more than 8 words apart if pain mention is first
 
     :param c: pain-anatomy candidate
-    :return:
+    :return: boolean; True if anatomy and pain entities are less far apart, False otherwise
     """
 
     distance = len(list(get_between_tokens(c)))
 
-    return True if ((distance > 5 and c.pain.char_end > c.anatomy.char_end) or (distance > 8 and c.pain.char_end < c.anatomy.char_end)) else 0
+    b1 = distance > 5
+    b1 &= c.pain.char_end > c.anatomy.char_end
+
+    b2 = distance > 8
+    b2 &= c.pain.char_end < c.anatomy.char_end
+
+    b = b1 or b2
+
+    return True if b else 0
 
 def candidate_in_list(c):
     """
     Check whether a pain-anatomy candidate is in a list e.g.
     'Warning Signs: fever, increased or excessive pain, redness or pus at incision/wound sites,
         vomiting, bleeding, shortness of breath, chest pain,'
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: boolean; True if candidate is in a list, False otherwise
     """
 
     sent_spans = get_sent_candidate_spans(c)
@@ -80,8 +142,8 @@ def candidate_in_checklist(c):
     Check whether a  pain-anatomy candidate is
     in a checklist e.g. e.g. ¿ a ¿ b ¿ c
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: boolean; True if candidate is in a checklist, False otherwise
     """
 
     sent_spans = get_sent_candidate_spans(c)
@@ -101,8 +163,8 @@ def date_between(c):
     Check whether a candidate has a date between its
     entities
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: boolean; True if candidate has a data between its entities, False otherwise
     """
 
     between_tokens = list(get_between_tokens(c))
@@ -119,8 +181,8 @@ def misattached_entities(c):
     e.g. if note contains "chest pain, ache in abdomen" and
     candidate is (ache, chest)
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: boolean; True if candidate is misattached, False otherwise
     """
 
     between_tokens = list(get_between_tokens(c))
@@ -132,8 +194,9 @@ def misattached_entities2(c):
     Check whether a pain anatomy mention is mis-attached where pain mention precedes anatomy mention
     e.g. if note contains 'chest pain, left leg also tender'
     and candidate is (pain, left leg)
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: boolean; True if candidate is misattached, False otherwise
     """
 
     between_tokens = list(get_between_tokens(c))
@@ -147,8 +210,8 @@ def misattached_entities3(c):
     e.g. note contains 'dorsum of the foot, positive tenderness to the right toes' and candidate
     is (tenderness, dorsum of the foot)
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: boolean; True if candidate is misattached, False otherwise
     """
 
     between_tokens = list(get_between_tokens(c))
@@ -162,9 +225,10 @@ def left_pain_multiple_anatomy(c):
     where candidate is (pain, upper right thigh)
     is attached to another entity to its left.
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: boolean; True if pain entity is attached to multiple anatomy entities, False otherwise
     """
+
     left_window = get_left_tokens(c, 5)
 
     return True if list_contains_anatomy_mention(left_window) and c.pain.char_end < c.anatomy.char_start else False
@@ -173,8 +237,9 @@ def LF_far_apart(c):
     """
     Check if entities in pain anatomy candidate are very far apart
     as defined in far_apart()
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     v = far_apart(c)
@@ -186,8 +251,9 @@ def LF_less_far_apart(c):
     """
     Check if entities in pain anatomy are somewhat far apart
     as defined in less_far_apart()
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
     v = less_far_apart(c)
 
@@ -200,11 +266,11 @@ def LF_contiguous_right_pain(c):
     where pain mention is directly attached to anatomy mention
     and where the mention is not negated (using Negex)
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: 1 if True, 0 otherwise
     """
 
-    possible_terms = [x['term'].split(' ') for x in negex.dictionary['definite'] if x['direction'] == 'left']
+    possible_terms = [x['term'].split(' ') for x in negex.dictionary['definite'] if x['direction'] == 'forward']
     longest = len(max(possible_terms, key=len))
     window = longest + 2
     distance = len(list(get_between_tokens(c)))
@@ -220,11 +286,11 @@ def LF_near_contiguous_right_pain(c):
     Check for pain anatomy-mentions that are close to contiguous e.g.
     'hip and knee pain' where candidate is (pain, hip)
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: 1 if True, 0 otherwise
     """
 
-    possible_terms = [x['term'].split(' ') for x in negex.dictionary['definite'] if x['direction'] == 'left']
+    possible_terms = [x['term'].split(' ') for x in negex.dictionary['definite'] if x['direction'] == 'forward']
     longest = len(max(possible_terms, key=len))
     left_window_length = longest + 2
     left_window = get_left_tokens(c, window=left_window_length)
@@ -276,8 +342,8 @@ def LF_contiguous_left_pain(c):
     where pain mention is directly attached to anatomy mention
     and where the mention is not negated (using Negex)
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: 1 if True, 0 otherwise
     """
 
     v = len(list(get_between_tokens(c))) < 1
@@ -291,9 +357,11 @@ def LF_near_contiguous_left_pain(c):
     Check for pain-anatomy candidates that are
     non-contiguous but close mentions,
     e.g., 'pain in the hip', 'tenderness of the right side'
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: 1 if True, 0 otherwise
     """
+
     between_tokens = list(get_between_tokens(c))
 
     left_window_length = 8
@@ -309,6 +377,7 @@ def LF_near_contiguous_left_pain(c):
     v &= not negated
     v &= not '(' in between_tokens
     v &= not ',' in between_tokens
+
     return 1 if v else 0
 
 def LF_long_distance_left_pain(c):
@@ -317,9 +386,11 @@ def LF_long_distance_left_pain(c):
     long distance mentions,
     e.g., 'pain in the lower right hip and left ankle'
     where candidate is (pain, left ankle)
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: 1 if True, 0 otherwise
     """
+
     between_tokens = list(get_between_tokens(c))
     right_window = get_right_tokens(c, 3)
     left_window_length = 5
@@ -342,9 +413,10 @@ def LF_complains_of(c):
     Check if candidate is preceded by 'complains of' or some similar variant
     and is not negated (using Negex)
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: 1 if preceded by non-negated 'complains of' variant, -1 if preceded by negated 'complains of' variant, 0 otherwise
     """
+
     left_window = get_left_tokens(c, window=7)
     left_window_phrase = ' '.join(left_window)
 
@@ -375,14 +447,15 @@ def LF_pain_between_entities(c):
     """
     Check if there is a pain mention between entities in a
     candidate pain-anatomy mention
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     between_tokens = list(get_between_tokens(c))
 
     v = len(between_tokens) < 10
-    v &= c.pain.char_start > c.anatomy.char_end:
+    v &= c.pain.char_start > c.anatomy.char_end
     v &= ',' in between_tokens
     v &= not '(' in between_tokens
     v &= not';' in between_tokens
@@ -396,11 +469,11 @@ def LF_negex_definite_negation_left(c):
     of the candidate e.g. 'patient denies chest pain'
     (Using Negex)
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
-    possible_terms = [x['term'].split(' ') for x in negex.dictionary['definite'] if x['direction'] == 'left']
+    possible_terms = [x['term'].split(' ') for x in negex.dictionary['definite'] if x['direction'] == 'forward']
     longest = len(max(possible_terms, key=len))
     left_window_length = longest + 2
 
@@ -414,12 +487,12 @@ def LF_negex_definite_negation_right(c):
     of the candidate e.g. 'chest pain is denied'
     (Using Negex)
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     possible_terms = [x['term'].split(' ') for x in negex_lexicon if
-                      x['category'] == 'definite' and x['direction'] == 'right']
+                      x['category'] == 'definite' and x['direction'] == 'backward']
     longest = len(max(possible_terms, key=len))
     right_window_length=longest + 2
 
@@ -431,8 +504,8 @@ def LF_candidate_in_list(c):
     """
     Check if a candidate is in a list
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
     v = candidate_in_list(c)
     return -1 if v else 0
@@ -440,8 +513,9 @@ def LF_candidate_in_list(c):
 def LF_candidate_in_checklist(c):
     """
     Check if candidate is in a check list
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     v = candidate_in_checklist(c)
@@ -451,8 +525,9 @@ def LF_misattached_entities(c):
     """
     Check if entities in pain-anatomy candidate are mis-attached as in
     misattached_entities()
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     v = misattached_entities(c)
@@ -462,8 +537,9 @@ def LF_misattached_entities2(c):
     """
     Check if entities in pain-anatomy candidate are mis-attached as in
     misattached_entities2()
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     v = misattached_entities2(c)
@@ -474,8 +550,9 @@ def LF_misattached_entities3(c):
     """
     Check if entities in pain-anatomy candidate are mis-attached as in
     misattached_entities3()
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
     v = misattached_entities3(c)
 
@@ -484,8 +561,9 @@ def LF_misattached_entities3(c):
 def LF_negated_term_between_entities(c):
     """
     Check if there is a negated term between entities in a pain-anatomy candidate
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     possible_terms = [x['term'].split(' ') for x in negex.dictionary['definite']]
@@ -508,8 +586,9 @@ def LF_pain_score_location(c):
     Check if the term 'location :'
     appears between entities in pain-anatomy candidate
     and there is not an anatomy term between them
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: 1 if True, 0 otherwise
     """
 
     between_tokens = list(get_between_tokens(c))
@@ -524,8 +603,9 @@ def LF_warning_signs_hypothetical(c):
     """
     Check if candidate is in a list of warning signs e.g.
     preceded by 'Warning Signs:'
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     sent_spans = get_sent_candidate_spans(c)
@@ -541,8 +621,9 @@ def LF_warning_signs_hypothetical(c):
 def LF_left_pain_multiple_anat(c):
     """
     Check if pain mention in candidate is attached to another anatomical entity
-    :param c:
-    :return:
+
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     v = left_pain_multiple_anatomy(c)
@@ -554,8 +635,8 @@ def LF_left_pain_anatomy_between(c):
     Check if there is another anatomy mention between entities in a
     pain-anatomy candidate
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     between_tokens = list(get_between_tokens(c))
@@ -573,8 +654,8 @@ def LF_date_between(c):
     Check if there is a date between entities in a
     pain-anatomy candidate
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     v = date_between(c)
@@ -584,8 +665,8 @@ def LF_history_of_present_illness(c):
     """
     Check if candidate is in a HISTORY OF PRESENT ILLNESS section
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: 1 if True, 0 otherwise
     """
 
     left_window = get_left_tokens(c, window=100)
@@ -609,8 +690,8 @@ def LF_past_medical_history(c):
     """
     Check if candidate is in a past medical history section
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     left_window = get_left_tokens(c, window=100)
@@ -627,8 +708,8 @@ def LF_radiograph_view(c):
     Check if the term view occurs between the pain and anatomy mentions
     in a candidate
 
-    :param c:
-    :return:
+    :param c: pain-anatomy candidate
+    :return: -1 if True, 0 otherwise
     """
 
     between_tokens = list(get_between_tokens(c))
