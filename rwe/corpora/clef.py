@@ -1,5 +1,6 @@
 '''
-
+ShARe/CLEF 2014 Corpus
+299 documents from from MIMIC-II
 
 '''
 import os
@@ -44,18 +45,10 @@ class ClefCorpus(object):
 
         self.filelist = glob.glob(self.cachedir + "/*.txt")
         self.folds = {}
-        #self.folds["train"] = self.filelist[0:150]
-        #self.folds["dev"]   = self.filelist[150:200]
-        #self.folds["test"]  = self.filelist[200:]
 
         self.folds["train"] = self.filelist[150:200]
         self.folds["dev"] = self.filelist[200:]
         self.folds["test"] = self.filelist[0:150]
-
-
-        #Candidates(Train):   137
-        #Candidates(Dev):     240
-        #Candidates(Test):    73
 
         self.folds["train"] = [os.path.basename(fn).split(".")[0] + "::document:0:0" for fn in self.folds["train"]]
         self.folds["dev"] = [os.path.basename(fn).split(".")[0] + "::document:0:0" for fn in self.folds["dev"]]
@@ -66,6 +59,7 @@ class ClefCorpus(object):
         fold_idx.update({doc_id: "test" for doc_id in self.folds['test']})
 
         return fold_idx
+
 
     def _preprocess_doc(self, infile, normalize=False):
         '''CLEF-specific cleanup to assist in better parsing'''
@@ -94,28 +88,3 @@ class ClefCorpus(object):
         for rpl, tag in fields.items():
             txt = txt.replace(tag, rpl)
         return txt, fields
-
-
-
-# def train_dev_test_split(outdir):
-#     np.random.shuffle(filelist)
-#     written = {}
-#
-#     train = filelist[0:150]
-#     dev  = filelist[150:200]
-#     test = filelist[200:]
-#
-#     # create subdirectories for random folds
-#     splits = {"train":train,"dev":dev,"test":test}
-#     for setname in splits:
-#         dirname = outdir + "/" + setname + "/"
-#         print dirname
-#         if not os.path.exists(dirname):
-#             os.mkdir(dirname)
-#
-#         for fname in splits[setname]:
-#             if fname.split("/")[-1] in written:
-#                 continue
-#             outfile = outdir + setname + "/" + fname.split("/")[-1]
-#             process_clef_document(fname,outfile)
-#             written[fname.split("/")[-1]] = 1

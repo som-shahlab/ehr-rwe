@@ -1,14 +1,16 @@
+"""
+Simple context, bag of word features features
+
+"""
 import sys
 import itertools
 import numpy as np
 from snorkel.features import get_span_feats
 
 
-def hybrid_span_mention_ftrs(candidate, stopwords=None, window=5, max_seq_ftr_len=3,
-                             opts=["lemmas", "pos_tags"],
-                             use_treedlib=True):
+def hybrid_span_mention_ftrs(candidate, stopwords=None, window=5,
+                             max_seq_ftr_len=3, opts=["lemmas", "pos_tags"], use_treedlib=True):
     """
-
     Simple sequence-based features for relation extraction. This works
     well with relation extraction tasks that frequently have contiguous arguments,
     e.g.,
@@ -66,6 +68,7 @@ def hybrid_span_mention_ftrs(candidate, stopwords=None, window=5, max_seq_ftr_le
         for f in get_span_feats(candidate):
             yield f
 
+
 def get_bin(v, bins=[0, 1, 2, 4, 6, 8]):
     """
 
@@ -79,6 +82,7 @@ def get_bin(v, bins=[0, 1, 2, 4, 6, 8]):
             return "{}:{}".format(bins[i], bins[i + 1])
 
     return "{}:".format(bins[-1])
+
 
 def get_ngrams(s, max_len=3):
     """

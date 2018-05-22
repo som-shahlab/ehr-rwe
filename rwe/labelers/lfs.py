@@ -1,11 +1,10 @@
 # coding=utf-8
 
 import re
-
-from rwe.extractlib.utils import load_dict
-from rwe.extractlib.negex import *
-
+from .negex import *
+from rwe.utils import load_dict
 from snorkel.lf_helpers import *
+
 
 dict_pain = load_dict("../data/supervision/dicts/nociception/nociception.curated.txt")
 dict_anatomy = load_dict("../data/supervision/dicts/anatomy/fma_human_anatomy.bz2")
@@ -491,8 +490,11 @@ def LF_negex_definite_negation_right(c):
     :return: -1 if True, 0 otherwise
     """
 
-    possible_terms = [x['term'].split(' ') for x in negex_lexicon if
-                      x['category'] == 'definite' and x['direction'] == 'backward']
+    #possible_terms = [x['term'].split(' ') for x in negex_lexicon if
+    #                  x['category'] == 'definite' and x['direction'] == 'backward']
+
+    possible_terms = [t['term'].split() for t in negex.dictionary["definite"] if t["direction"] == 'backward']
+
     longest = len(max(possible_terms, key=len))
     right_window_length=longest + 2
 

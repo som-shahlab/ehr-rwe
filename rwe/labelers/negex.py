@@ -3,6 +3,7 @@ import csv
 from collections import defaultdict
 from snorkel.lf_helpers import get_left_tokens, get_right_tokens
 
+
 class NegEx(object):
     '''
     Negex
@@ -66,15 +67,6 @@ class NegEx(object):
         return ntypes
 
 
-
-
-    def lfs(self):
-        """
-
-        :return:
-        """
-        pass
-
     @staticmethod
     def build_regexs(dictionary):
         """
@@ -98,8 +90,6 @@ class NegEx(object):
                 rgxs[category][direction] = re.compile(r"({})(?:\s|$)".format(p), flags=re.I)
 
         return rgxs
-
-
 
 
     @staticmethod

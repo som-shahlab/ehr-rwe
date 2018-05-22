@@ -1,8 +1,5 @@
-import bz2
-import glob
-import codecs
-from rwe.extractlib.utils import *
 from snorkel.matchers import *
+
 
 class AnatomicalSiteMatcher(Union):
 
@@ -14,21 +11,7 @@ class AnatomicalSiteMatcher(Union):
 
     def _init_matchers(self):
         """
-
-
-        TODO: 5/22 Add matchers for
-            extensor hallucis longus tendon sheath
-            anterior tibialis tendon
-            right greater trochanter
-            right SI joint
-
-            Myofascial
-
-        add new pain sensation:
-
-            dysesthesia
-            crepitus  - "a grating sound or sensation produced by friction between bone and cartilage or the fractured parts of a bone."
-
+        Initialize regular expression and prefix/suffix dictionaries to match entities
         :return:
         """
 
@@ -67,16 +50,12 @@ class AnatomicalSiteMatcher(Union):
         rgx = "(%s){1,4}" % "|".join(locations).lower()
         spatial_mod_matcher = RegexMatchEach(rgx=rgx)
 
-        #spatial_mod_matcher = DictionaryMatch(d=dict.fromkeys(locations), ignore_case=True)
-
         # directional modifiers
         directional = set(["axial", "intermediate", "parietal", "visceral"])
         directional = set(["{}ly".format(t) for t in directional]).union(directional)
 
         rgx = "(%s){1,3}" % "|".join(directional).lower()
         directional_mod_matcher = RegexMatchEach(rgx=rgx)
-
-        #directional_mod_matcher = DictionaryMatch(d=dict.fromkeys(directional), ignore_case=True)
 
         left_location_matcher = Concat(spatial_mod_matcher, amatcher_simple,
                                        left_required=False, right_required=True)
@@ -112,9 +91,8 @@ class PainMatcher(Union):
         MF_dict_pain = DictionaryMatch(d=self.dictionary, ignore_case=True,
                                        longest_match_only=self.longest_match_only)
 
-        # Pain:
+        # pain scores
         rgx = "pain\s*(score|level)*\s*[:]*\s*[0-9][.+-]*[0-9]*[/][0-9]+"
-        #rgx = "(pain\s*[:]\s*)*pain\s*(score|level)*\s*[:]*\s*[0-9][.+-]*[0-9]*[/][0-9]+"
         MF_pain_scores = RegexMatchSpan(rgx=rgx, ignore_case=True)
 
         # 8/10 pain
