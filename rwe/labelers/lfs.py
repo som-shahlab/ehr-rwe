@@ -22,7 +22,10 @@ def regex_in_text(regex, text):
 
     matcher = re.compile(regex, flags=re.I)
     result = matcher.search(text)
-    return True if result is not None else False
+
+    b = result is not None
+    
+    return True if b else False
 
 def text_contains_pain_mention(text):
     """
@@ -34,7 +37,7 @@ def text_contains_pain_mention(text):
 
     b = any(term in text for term in dict_pain)
 
-    return b
+    return True if b else False
 
 def text_contains_anatomy_mention(text):
     """
@@ -46,7 +49,7 @@ def text_contains_anatomy_mention(text):
 
     b = any(term in text for term in dict_anatomy)
 
-    return b
+    return True if b else False
 
 def list_contains_pain_mention(list):
     """
@@ -57,7 +60,7 @@ def list_contains_pain_mention(list):
     """
     b = any(term in dict_pain for term in list)
 
-    return b
+    return True if b else False
 
 def list_contains_anatomy_mention(list):
     """
@@ -69,7 +72,7 @@ def list_contains_anatomy_mention(list):
 
     b = any(term in dict_anatomy for term in list)
 
-    return b
+    return True if b else False
 
 def far_apart(c):
     """
@@ -112,7 +115,7 @@ def less_far_apart(c):
 
     b = b1 or b2
 
-    return True if b else 0
+    return True if b else False
 
 def candidate_in_list(c):
     """
@@ -186,7 +189,10 @@ def misattached_entities(c):
 
     between_tokens = list(get_between_tokens(c))
 
-    return True if len(between_tokens) < 3 and ',' in between_tokens else False
+    b = len(between_tokens) < 3
+    b &= ',' in between_tokens
+
+    return True if b else False
 
 def misattached_entities2(c):
     """
@@ -200,8 +206,12 @@ def misattached_entities2(c):
 
     between_tokens = list(get_between_tokens(c))
     right_window = get_right_tokens(c, 14)
-    flag = False
-    return True if c.pain.char_end < c.anatomy.char_start and ',' in between_tokens and list_contains_pain_mention(right_window) else False
+
+    b = c.pain.char_end < c.anatomy.char_start
+    b &= ',' in between_tokens
+    b &= list_contains_pain_mention(right_window)
+
+    return True if b else False
 
 def misattached_entities3(c):
     """
@@ -216,7 +226,12 @@ def misattached_entities3(c):
     between_tokens = list(get_between_tokens(c))
     right_window = get_right_tokens(c, 14)
 
-    return True if c.anatomy.char_end < c.pain.char_start and ',' in between_tokens and list_contains_anatomy_mention(right_window) and not list_contains_anatomy_mention(between_tokens) else False
+    b = c.anatomy.char_end < c.pain.char_start
+    b &= ',' in between_tokens
+    b &= list_contains_anatomy_mention(right_window)
+    b &= not list_contains_anatomy_mention(between_tokens)
+
+    return True if b else False
 
 def left_pain_multiple_anatomy(c):
     """
@@ -230,7 +245,10 @@ def left_pain_multiple_anatomy(c):
 
     left_window = get_left_tokens(c, 5)
 
-    return True if list_contains_anatomy_mention(left_window) and c.pain.char_end < c.anatomy.char_start else False
+    b = list_contains_anatomy_mention(left_window)
+    b &= c.pain.char_end < c.anatomy.char_start
+
+    return True if b else False
 
 def LF_far_apart(c):
     """
