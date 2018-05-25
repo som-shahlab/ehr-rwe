@@ -24,7 +24,7 @@ def regex_in_text(regex, text):
     result = matcher.search(text)
 
     b = result is not None
-    
+
     return True if b else False
 
 def text_contains_pain_mention(text):
@@ -263,19 +263,6 @@ def LF_far_apart(c):
 
     return -1 if v else 0
 
-def LF_less_far_apart(c):
-
-    """
-    Check if entities in pain anatomy are somewhat far apart
-    as defined in less_far_apart()
-
-    :param c: pain-anatomy candidate
-    :return: -1 if True, 0 otherwise
-    """
-    v = less_far_apart(c)
-
-    return -1 if v else 0
-
 def LF_contiguous_right_pain(c):
     """
     Check for pain-anatomy candidates that are compound mentions
@@ -351,7 +338,6 @@ def LF_near_contiguous_right_pain(c):
 
     return 1 if v else 0
 
-
 def LF_contiguous_left_pain(c):
     """
     Check for pain-anatomy candidates that are compound mentions
@@ -367,7 +353,6 @@ def LF_contiguous_left_pain(c):
     v &= c.pain.char_end < c.anatomy.char_end
 
     return 1 if v else 0
-
 
 def LF_near_contiguous_left_pain(c):
     """
