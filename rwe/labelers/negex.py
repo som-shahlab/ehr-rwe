@@ -3,17 +3,21 @@ import csv
 from collections import defaultdict
 from ..helpers import get_left_span, get_right_span
 
+
 class NegEx(object):
     '''
-    Negex
+    NegEx
 
-    Chapman, Wendy W., et al. "A simple algorithm for identifying negated findings and
-    diseases in discharge summaries." Journal of biomedical informatics 34.5 (2001): 301-310.
+    Chapman, Wendy W., et al. "A simple algorithm for identifying negated
+    findings and diseases in discharge summaries." Journal of biomedical
+    informatics 34.5 (2001): 301-310.
+
     '''
     def __init__(self,data_root='supervision/dicts/negex'):
         self.data_root = data_root
         self.filename = "negex_multilingual_lexicon-en-de-fr-sv.csv"
-        self.dictionary = NegEx.load("{}/{}".format(self.data_root, self.filename))
+        self.dictionary = NegEx.load("{}/{}".format(self.data_root,
+                                                    self.filename))
         self.rgxs = NegEx.build_regexs(self.dictionary)
 
     def negation(self, span, category, direction, window=3):
@@ -64,7 +68,6 @@ class NegEx(object):
 
         return ntypes
 
-
     @staticmethod
     def build_regexs(dictionary):
         """
@@ -74,8 +77,10 @@ class NegEx(object):
         """
         rgxs = defaultdict(dict)
         for category in dictionary:
-            fwd = [t["term"] for t in dictionary[category] if t['direction'] in ['forward', 'bidirectional']]
-            bwd = [t["term"] for t in dictionary[category] if t['direction'] in ['backward', 'bidirectional']]
+            fwd = [t["term"] for t in dictionary[category] \
+                   if t['direction'] in ['forward', 'bidirectional']]
+            bwd = [t["term"] for t in dictionary[category] \
+                   if t['direction'] in ['backward', 'bidirectional']]
             rgxs[category]['left'] = "|".join(sorted(fwd, key=len, reverse=1))
             rgxs[category]['right'] = "|".join(sorted(bwd, key=len, reverse=1))
 
@@ -85,10 +90,10 @@ class NegEx(object):
                 del rgxs[category]['right']
             for direction in rgxs[category]:
                 p = rgxs[category][direction]
-                rgxs[category][direction] = re.compile(r"({})(\b|$)".format(p), flags=re.I)
+                rgxs[category][direction] = re.compile(r"({})(\b|$)".format(p),
+                                                       flags=re.I)
 
         return rgxs
-
 
     @staticmethod
     def load(filename):
@@ -105,11 +110,12 @@ class NegEx(object):
                 category = row[30]
                 direction = row[32]
                 if category == 'definiteNegatedExistence':
-                    negex['definite'].append({'term': term, 'direction': direction})
+                    negex['definite'].append({'term': term,
+                                              'direction': direction})
                 elif category == 'probableNegatedExistence':
-                    negex['probable'].append({'term': term, 'direction': direction})
+                    negex['probable'].append({'term': term,
+                                              'direction': direction})
                 elif category == 'pseudoNegation':
-                    negex['pseudo'].append({'term': term, 'direction': direction})
+                    negex['pseudo'].append({'term': term,
+                                            'direction': direction})
         return negex
-
-

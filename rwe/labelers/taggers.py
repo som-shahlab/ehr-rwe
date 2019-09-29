@@ -282,7 +282,6 @@ class NegExTagger(Tagger):
             for cxt in sorted(self.negex.rgxs[name]):
                 self.header.append(f'LF_{name}_{cxt}')
 
-
     def _apply_lfs(self, span, sentence, ngrams):
         """
         Apply NegEx labeling functions.
@@ -301,7 +300,6 @@ class NegExTagger(Tagger):
                 L.append(v)
         return np.array(L)
 
-
     def tag(self, document, ngrams=6):
         for i in document.annotations:
             # apply to the following concept targets
@@ -315,6 +313,7 @@ class NegExTagger(Tagger):
                         span.props['negated'] = y[0]
                     elif L.any() and self.label_reduction == 'or':
                         span.props['negated'] = int(1 in L)
+
 
 ###############################################################################
 #
@@ -397,7 +396,6 @@ class LateralityTagger(Tagger):
                         span.props['lat'] = self._get_normed_laterality(laterality)
 
 
-
 ###############################################################################
 #
 # Relation Tagger
@@ -427,6 +425,7 @@ class RelationTagger(object):
             ]
             document.annotations[i].update({self.type_name: relations})
 
+
 #################################################################################
 #
 # Hypothetical Tagger
@@ -435,7 +434,8 @@ class RelationTagger(object):
 
 class HypotheticalTagger(Tagger):
     """
-    Hypothetical future events. These are discussed in future tense as speculative events.
+    Hypothetical future events. These are discussed in future tense as
+    speculative events.
     - "assuming X happens"
     - "recommend X"
     - "chance of X"
@@ -509,7 +509,7 @@ class HypotheticalTagger(Tagger):
 
 ###############################################################################
 #
-# Section Header Tagger
+# Section Header Taggers
 #
 ###############################################################################
 

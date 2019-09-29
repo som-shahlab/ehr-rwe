@@ -7,6 +7,7 @@ from joblib import Parallel, delayed
 from typing import List, Set, Dict, Tuple, Optional, Union
 from ..contexts import Document
 
+
 class Distributed(object):
 
     def __init__(self,
@@ -67,6 +68,7 @@ class LabelingServer(Distributed):
             Ls.append(L[i:i + n].copy())
             i += n
         return Ls
+
 
 class TaggerPipelineServer(Distributed):
 
