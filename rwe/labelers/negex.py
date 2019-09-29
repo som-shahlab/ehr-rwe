@@ -1,8 +1,7 @@
 import re
 import csv
 from collections import defaultdict
-from snorkel.lf_helpers import get_left_tokens, get_right_tokens
-
+from ..helpers import get_left_span, get_right_span
 
 class NegEx(object):
     '''
@@ -31,11 +30,10 @@ class NegEx(object):
         if not rgx.pattern:
             return None
 
-        context = get_left_tokens(span, window) if direction == 'left' else get_right_tokens(span, window)
-        context = " ".join(context).strip()
-        #m = rgx.search(context)
-        m = rgx.findall(context)
+        cxt = get_left_span(span, window=window) if direction == 'left' \
+            else get_right_span(span, window=window)
 
+        m = rgx.findall(cxt.text)
         return m if m else None
 
     def is_negated(self, span, category, direction, window=3):
@@ -87,7 +85,7 @@ class NegEx(object):
                 del rgxs[category]['right']
             for direction in rgxs[category]:
                 p = rgxs[category][direction]
-                rgxs[category][direction] = re.compile(r"({})(?:\s|$)".format(p), flags=re.I)
+                rgxs[category][direction] = re.compile(r"({})(\b|$)".format(p), flags=re.I)
 
         return rgxs
 

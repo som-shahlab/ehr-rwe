@@ -1,15 +1,63 @@
-# coding=utf-8
-
 import re
-from .negex import *
-from rwe.utils import load_dict
-from snorkel.lf_helpers import *
+from .negex import NegEx
+from ..utils import load_dict
+from rwe.labelers.taggers import get_left_span, get_right_span, get_between_span
+
+###############################################################################
+#
+# Legacy Snorkel API calls
+#
+###############################################################################
+
+def get_between_tokens(c,
+                       attrib='words',
+                       n_max=1,
+                       case_sensitive=False):
+    span = get_between_span(c[0],c[1])
+    tokens = span.get_attrib_tokens(attrib)
+    return [t.lower() for t in tokens] if not case_sensitive else tokens
+
+def get_left_tokens(c,
+                    window=3,
+                    attrib='words',
+                    n_max=1,
+                    case_sensitive=False):
+    left,right = (c[0],c[1]) if c[0].char_start < c[1].char_start \
+        else (c[1],c[0])
+    span = get_left_span(left, window=window)
+    tokens = span.get_attrib_tokens(attrib)
+    return [t.lower() for t in tokens] if not case_sensitive else tokens
+
+def get_right_tokens(c,
+                     window=3,
+                     attrib='words',
+                     n_max=1,
+                     case_sensitive=False):
+    left,right = (c[0],c[1]) if c[0].char_start < c[1].char_start \
+        else (c[1],c[0])
+    span = get_right_span(right, window=window)
+    tokens = span.get_attrib_tokens(attrib)
+    return [t.lower() for t in tokens] if not case_sensitive else tokens
 
 
-dict_pain = load_dict("../data/supervision/dicts/nociception/nociception.curated.txt")
-dict_anatomy = load_dict("../data/supervision/dicts/anatomy/fma_human_anatomy.bz2")
+###############################################################################
+#
+# Labeling Function Data Dependencies
+#
+###############################################################################
 
-negex = NegEx("../data/supervision/dicts/negex")
+dict_pain = load_dict('../data/dicts/pain/pain.txt')
+dict_anat = load_dict('../data/dicts/anatomy/anat.bz2')
+
+negex = NegEx("../data/dicts/negex")
+
+###############################################################################
+#
+# Labeling Functions
+#
+###############################################################################
+
+
 
 def regex_in_text(regex, text):
     """
@@ -47,7 +95,7 @@ def text_contains_anatomy_mention(text):
     :return: boolean; True if any pain dictionary term is found in text, False otherwise
     """
 
-    b = any(term in text for term in dict_anatomy)
+    b = any(term in text for term in dict_anat)
 
     return True if b else False
 
@@ -70,7 +118,7 @@ def list_contains_anatomy_mention(list):
     :return: boolean; True if any member of list is found in anatomy dictionary, False otherwise
     """
 
-    b = any(term in dict_anatomy for term in list)
+    b = any(term in dict_anat for term in list)
 
     return True if b else False
 
