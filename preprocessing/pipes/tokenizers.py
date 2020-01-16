@@ -1,5 +1,5 @@
 """
-spaCy Biomedical Text Tokenizer & Sentence Boundary Detection (SBD)
+spaCy Clinical Text Tokenizer & Sentence Boundary Detection (SBD)
 
 Tested on clinical notes from:
 - MIMIC-III
@@ -10,6 +10,7 @@ Tested on clinical notes from:
 """
 import re
 import os
+import toolz
 import spacy
 import logging
 from functools import partial
@@ -17,16 +18,16 @@ from collections import defaultdict
 from spacy.tokenizer import Tokenizer
 from spacy.pipeline import SentenceSegmenter
 from spacy.symbols import ORTH, LEMMA, POS, TAG
-from typing import List, Set, Dict, Tuple, Optional, Union
+from typing import List, Set, Dict, Tuple, Optional, Union, Callable, Generator
 
 
 logger = logging.getLogger(__name__)
 
-#################################################################################
+###############################################################################
 #
 # Sentence Boundary Detection
 #
-#################################################################################
+###############################################################################
 
 def split_on_punct(doc):
     """
@@ -61,8 +62,10 @@ def split_on_rgx(sentences, doc, rgx, threshold=250, sent_match=None):
     """
     splits = []
     for sent in sentences:
-        if len(sent.text) >= threshold and not sent_match or (len(sent.text) >= threshold and sent_match(sent)):
-            idxs = [sent[0].i] + [word.i for word in sent if rgx.search(word.text)] + [sent[-1].i + 1]
+        if len(sent.text) >= threshold and not sent_match or \
+                (len(sent.text) >= threshold and sent_match(sent)):
+            idxs = [sent[0].i] + [word.i for word in sent \
+                                  if rgx.search(word.text)] + [sent[-1].i + 1]
             idxs = sorted(list(set(idxs)))
             for i in range(len(idxs) - 1):
                 splits.append(doc[idxs[i]:idxs[i + 1]])
@@ -81,23 +84,25 @@ def merge_sentences(doc, sents, merge_terms):
 
     :param doc:
     :param idxs:
-    :param association_weights:
+    :param merge_terms:
     :return:
     """
     # terms that can never end a sentence
-    non_terminals = set([',', '-', '(', '=', '/', 'mrs.', 'mr.', 'ms.',
-                         'dr.', 'at', 'with', 'and', 'the', 'is', 's/p'])
+    non_terminals = {
+        ',', '-', '(', '=', '/', 'mrs.', 'mr.', 'ms.',
+        'dr.', 'at', 'with', 'and', 'the', 'is', 's/p'
+    }
 
     # word indices
-    sequences = [[word.i for word in sent if word.text.strip()] for sent in sents]
+    sequences = [[
+        word.i for word in sent if word.text.strip()] for sent in sents
+    ]
     sequences = [idxs for idxs in sequences if len(idxs) != 0]
 
     stack = [sequences.pop(0)]
     for seq in sequences:
-
         i = stack[-1][-1]
         j = seq[0]
-
         text = re.sub(r'''\s{2,}|\n''', ' ', doc[i:j + 1].text).lower().strip()
         if text in merge_terms or doc[i].text in non_terminals:
             stack[-1].extend(seq)
@@ -119,9 +124,9 @@ def merge_sentences(doc, sents, merge_terms):
     return sentences
 
 
-def ct_sbd_rules(doc, merge_terms=None):
+def ct_sbd_rules(doc, merge_terms=None, max_sent_len=None):
     """
-    Recursively split sentences if they don't meet certain char length thresholds.
+    Split sentences if they don't meet certain char length thresholds.
     This splits on 3 and 2 character whitespace tokens and bulleted lists.
 
     :param doc:
@@ -136,22 +141,39 @@ def ct_sbd_rules(doc, merge_terms=None):
                          sent_match=lambda x: x.text.count(":") > 2)
     sents = split_on_rgx(sents, doc, re.compile("[•](?![CF])"), threshold=10)
 
-    #if association_weights:
+    # combine sentences based on a list terms that cannot split
     sents = merge_sentences(doc, sents, merge_terms)
+
+    # force sentences to have a max length
+    if max_sent_len:
+        splits = []
+        for s in sents:
+            idxs = [word.i for word in s]
+            if len(idxs) > max_sent_len:
+                parts = list(toolz.partition_all(max_sent_len, idxs))
+                for p in parts:
+                    seq = doc[p[0]:p[-1] + 1]
+                    splits.append(seq)
+            else:
+                seq = doc[idxs[0]:idxs[-1] + 1]
+                splits.append(seq)
+
+        sents = splits
 
     for s in sents:
         yield s
 
 
-#################################################################################
+###############################################################################
 #
 # Tokenization
 #
-#################################################################################
+###############################################################################
 
 def load_special_cases(filelist):
     """
-    Load manually defined special cases (including any lexical metadata like POS tag)
+    Load manually defined special cases (including any lexical metadata
+    like POS tag)
 
     :param filelist:
     :return:
@@ -167,8 +189,10 @@ def load_special_cases(filelist):
                 header = row
                 continue
             row = dict(zip(header, row))
-            attribs = {spacy_symbols[key]: value for key, value in row.items() if key in spacy_symbols}
-            attribs[ORTH] = row['TERM'] if ORTH not in attribs else attribs[ORTH]
+            attribs = {spacy_symbols[key]: value
+                       for key, value in row.items() if key in spacy_symbols}
+            attribs[ORTH] = row['TERM'] if ORTH not in attribs \
+                else attribs[ORTH]
             yield row['TERM'], [attribs]
 
 
@@ -187,8 +211,9 @@ def add_special_cases(tokenizer, special_cases):
 
 def build_token_match_rgx():
     """
-    Build accept & reject patterns for individual tokens. Preserving certain token groupings
-    (e.g., lab values) is useful for preventing false positives during sentence boundary detection.
+    Build accept & reject patterns for individual tokens. Preserving certain
+    token groupings (e.g., lab values) is useful for preventing false positives
+    during sentence boundary detection.
 
     :return:
     """
@@ -210,7 +235,7 @@ def build_token_match_rgx():
         r'''^[0-9]+[.][0-9]+$''',
         r'''^([A-Z][\.]|[1-9][0-9]*[\.)])$'''       # list item or single letter (often middle initial)
         r'''[0-9]+[/][0-9]+''',                     # fractions, blood pressure readings, etc.: 1/2 120/80
-        r'''^[A-Za-z][/][A-Za-z]([/][A-Za-z])*$''', # skip abbreviations of the form: n/v, c/d/i
+        #r'''^[A-Za-z][/][A-Za-z]([/][A-Za-z])*$''', # skip abbreviations of the form: n/v, c/d/i
 
         # date time expressions
         r'''([01][0-9]/[0-3][0-9])''',              # 11/12
@@ -251,7 +276,7 @@ def ct_tokenizer(nlp):
     """
     prefix_re = re.compile(r'''^([\["'()*+-?/\<\>#%]+|[><][=])+''')
     suffix_re = re.compile(r'''([\]"'),-.:;*]|'s)$''')
-    infix_re  = re.compile(r'''[%(),-./;=?]+''')  # if no period [.] here, spaCy SBD breaks
+    infix_re  = re.compile(r'''[%(),-./;=?]+''')  # spaCy SBD break w/o [.]
 
     tokenizer = Tokenizer(nlp.vocab,
                           prefix_search=prefix_re.search,
@@ -259,8 +284,10 @@ def ct_tokenizer(nlp):
                           infix_finditer=infix_re.finditer,
                           token_match=token_match)
 
-    special_cases = ["{}/specialist_special_cases.txt", "{}/special_cases.txt"]
-    special_cases = [fp.format(os.path.dirname(__file__)) for fp in special_cases]
+    special_cases = [
+        fp.format(os.path.dirname(__file__))
+        for fp in ["{}/specialist_special_cases.txt", "{}/special_cases.txt"]
+    ]
     add_special_cases(tokenizer, special_cases)
     return tokenizer
 
@@ -271,7 +298,9 @@ def ct_tokenizer(nlp):
 #
 ###################################################################
 
-def parse_doc(doc, disable={"ner", "parser", "tagger"}):
+def parse_doc(doc: spacy.tokens.Doc,
+              disable: Set[str] = None,
+              keep_whitespace: bool = False):
     """
     Given a parsed document, generate a parsed Sentence object
 
@@ -279,43 +308,69 @@ def parse_doc(doc, disable={"ner", "parser", "tagger"}):
     :param disable:
     :return:
     """
+    disable = {"ner", "parser", "tagger", "lemmatizer"} if not disable \
+        else disable
     for position, sent in enumerate(doc.sents):
         parts = defaultdict(list)
 
         for i, token in enumerate(sent):
-            parts['words'].append(str(token))
+
+            if not keep_whitespace and not token.text.strip():
+                continue
+
+            parts['words'].append(token.text)
             parts['abs_char_offsets'].append(token.idx)
 
             # optional NLP tags
+            if "lemmatizer" not in disable:
+                parts['lemmas'].append(token.lemma_)
             if "tagger" not in disable:
                 parts['pos_tags'].append(token.tag_)
             if "ner" not in disable:
-                parts['ner_tags'].append(token.ent_type_ if token.ent_type_ else 'O')
+                parts['ner_tags'].append(
+                    token.ent_type_ if token.ent_type_ else 'O'
+                )
             if "parser" not in disable:
-                head_idx = 0 if token.head is token else token.head.i - sent[0].i + 1
+                head_idx = 0 if token.head is token else \
+                    token.head.i - sent[0].i + 1
                 parts['dep_parents'].append(head_idx)
                 parts['dep_labels'].append(token.dep_)
+
+        # sentence is all whitespace
+        if not parts['words']:
+            continue
 
         parts['i'] = position
         yield parts
 
 
-def get_parser(disable = ["ner", "parser", "tagger"],
-               lang = 'en',
-               association_weights = None):
-    """
-    spaCy clinical text parser
+def get_parser(disable: List[str] = None ,
+               lang: str = 'en',
+               merge_terms: Optional[Set] = None,
+               max_sent_len: Optional[int] = None) -> Callable:
+    """spaCy clinical text parser
 
-    :param disable:
-    :param lang:
-    :return:
+    Parameters
+    ----------
+    disable
+    lang
+    merge_terms
+    max_sent_len
+
+    Returns
+    -------
+
     """
+    disable = ["ner", "parser", "tagger", "lemmatizer"] if not disable \
+        else disable
+    merge_terms = {} if not merge_terms else merge_terms
+
     nlp = spacy.load(lang, disable=disable)
     nlp.tokenizer = ct_tokenizer(nlp)
 
-    sbd_func = ct_sbd_rules
-    if association_weights:
-        sbd_func = partial(ct_sbd_rules, association_weights=association_weights)
+    sbd_func = partial(ct_sbd_rules,
+                       merge_terms=merge_terms,
+                       max_sent_len=max_sent_len)
 
     sbd = SentenceSegmenter(nlp.vocab, strategy=sbd_func)
     nlp.add_pipe(sbd)

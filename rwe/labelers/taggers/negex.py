@@ -1,7 +1,11 @@
 import re
 import csv
 from collections import defaultdict
-from ..helpers import get_left_span, get_right_span
+from rwe.helpers import get_left_span, get_right_span
+import numpy as np
+from rwe.helpers import *
+from rwe.labelers.taggers import *
+from scipy.stats import mode
 
 
 class NegEx(object):
@@ -119,3 +123,64 @@ class NegEx(object):
                     negex['pseudo'].append({'term': term,
                                             'direction': direction})
         return negex
+
+###############################################################################
+#
+# Negation Tagger
+#
+###############################################################################
+
+class NegExTagger(Tagger):
+
+    def __init__(self, targets, data_root, label_reduction='or'):
+        """
+        label_reduction:  or|mv
+        """
+        self.targets = targets
+        self.negex = NegEx(data_root=data_root)
+        self.label_reduction = label_reduction
+
+        # map negative types to output labels (1:True, 2:False)
+        self.class_map = {
+            'definite': 1,
+            'probable': 1,
+            'pseudo': 2
+        }
+
+        # LF names
+        self.header = []
+        for name in sorted(self.negex.rgxs):
+            for cxt in sorted(self.negex.rgxs[name]):
+                self.header.append(f'LF_{name}_{cxt}')
+
+    def _apply_lfs(self, span, sentence, ngrams):
+        """
+        Apply NegEx labeling functions.
+        TODO: Window size is fixed here, choices of 5-8 perform well
+        """
+        left = get_left_span(span, sentence, window=ngrams)
+        right = get_right_span(span, sentence, window=ngrams)
+
+        L = []
+        for name in sorted(self.negex.rgxs):
+            for cxt in sorted(self.negex.rgxs[name]):
+                v = 0
+                text = left.text if cxt == 'left' else right.text
+                if self.negex.rgxs[name][cxt].search(text):
+                    v = self.class_map[name]
+                L.append(v)
+        return np.array(L)
+
+    def tag(self, document, ngrams=6):
+        for i in document.annotations:
+            # apply to the following concept targets
+            for layer in self.targets:
+                if layer not in document.annotations[i]:
+                    continue
+                for span in document.annotations[i][layer]:
+                    L = self._apply_lfs(span, document.sentences[i], ngrams)
+                    if L.any() and self.label_reduction == 'mv':
+                        y, _ = mode(L[L.nonzero()])
+                        span.props['negated'] = y[0]
+                    elif L.any() and self.label_reduction == 'or':
+                        span.props['negated'] = int(1 in L)

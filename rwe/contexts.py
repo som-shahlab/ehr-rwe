@@ -142,6 +142,10 @@ class Relation(object):
         self.args = args
         self.__dict__.update(args)
 
+    def __iter__(self):
+        for span in self.args.values():
+            yield span
+
     def __getitem__(self, item):
         return list(self.args.values())[item]
 

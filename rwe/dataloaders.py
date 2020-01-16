@@ -18,7 +18,11 @@ def parse_doc(d) -> Document:
 
     """
     sents = [Sentence(**s) for s in d['sentences']]
-    return Document(d['name'], sents)
+    doc = Document(d['name'], sents)
+    if 'metadata' in d:
+        for key,value in d['metadata'].items():
+            doc.props[key] = value
+    return doc
 
 def dataloader(filelist: List[str]) -> List[Document]:
     """Load compressed JSON files

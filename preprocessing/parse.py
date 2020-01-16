@@ -11,6 +11,7 @@ from joblib import Parallel, delayed
 from functools import partial
 from spacy.util import minibatch
 from pipes.tokenizers import get_parser, parse_doc
+from typing import List, Set, Dict, Tuple, Optional, Union, Callable, Generator
 
 logger = logging.getLogger(__name__)
 
@@ -30,32 +31,12 @@ def timeit(f):
 
     return timed
 
-def mimic_doc_preprocessor(s):
-    """Replace MIMIC-III anonymization tags of the form
-        [**First Name8 (NamePattern2)**] with
-        |||First_Name8_(NamePattern2)|||
-    This results in fewer tokenization and SBD errors.
-
-    Parameters
-    ----------
-    s
-
-    Returns
-    -------
-
-    """
-    rgx = r'''(\[\*\*)[a-zA-Z0-9_/()\- ]+?(\*\*\])'''
-    for m in re.finditer(rgx, s):
-        repl = m.group().replace('[**', '|||').replace('**]', '|||')
-        repl = re.sub("[/()]", "|", repl)
-        s = s.replace(m.group(), repl.replace(" ", "_"))
-
-    m = re.search(r'''[?]{3,}''', s)
-    if m:
-        s = s.replace(m.group(), u"•" * (len(m.group())))
-    return s
-
-def transform_texts(nlp, batch_id, corpus, output_dir, disable=[], prefix=''):
+def transform_texts(nlp,
+                    batch_id,
+                    corpus,
+                    output_dir: str,
+                    disable: Set[str] = None,
+                    prefix: str = ''):
     """
 
     :param nlp:
@@ -71,16 +52,22 @@ def transform_texts(nlp, batch_id, corpus, output_dir, disable=[], prefix=''):
     print("Processing batch", batch_id)
 
     with out_path.open("w", encoding="utf8") as f:
-        doc_names, texts = zip(*corpus)
+        doc_names, texts, metadata = zip(*corpus)
         for i, doc in enumerate(nlp.pipe(texts)):
             sents = list(parse_doc(doc, disable=disable))
             f.write(
-                json.dumps({'name': str(doc_names[i]), 'sentences': sents}))
+                json.dumps(
+                    {'name': str(doc_names[i]),
+                     'metadata': metadata[i],
+                     'sentences': sents}
+                )
+            )
             f.write("\n")
     print("Saved {} texts to JSON {}".format(len(texts), batch_id))
 
 
-def dataloader(inputdir, preprocess=lambda x: x):
+def dataloader(inputdir: str,
+               preprocess: Callable = lambda x: x):
     """
 
     :param inputdir:
@@ -90,23 +77,40 @@ def dataloader(inputdir, preprocess=lambda x: x):
     filelist = glob.glob(inputdir + "/*.tsv")
     for fpath in filelist:
         print(fpath)
-        df = pd.read_csv(fpath, delimiter='\t', header=0, quotechar='"')  #
+        df = pd.read_csv(fpath, delimiter='\t', header=0, quotechar='"')
         for i, row in df.iterrows():
             doc_name = row['DOC_NAME']
-            text = row['TEXT'].replace('\\n', '\n').replace('\\t', '\t')
+            text = row['TEXT'].replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r')
             if not text.strip():
                 logger.error(
                     f"Document {doc_name} contains no text -- skipping")
                 continue
-            yield (doc_name, preprocess(text))
+            # add any other columns as metadata
+            metadata = {
+                name:value for name,value in row.to_dict().items()
+                if name not in ['DOC_NAME','TEXT']
+            }
+            yield (doc_name, preprocess(text), metadata)
 
+def load_merge_terms(fpath:str, sep: str = '\t') -> Set[str]:
+    terms = set()
+    with open(fpath, 'r') as fp:
+        for line in fp:
+            terms.add(line.strip().split(sep)[0])
+    return terms
 
 @timeit
 def main(args):
-    nlp = get_parser(disable=args.disable.split(','))
+
+    merge_terms = load_merge_terms(args.merge_terms) \
+        if args.merge_terms else {}
+
+    nlp = get_parser(disable=args.disable.split(','),
+                     merge_terms=merge_terms,
+                     max_sent_len=args.max_sent_len)
     
     identity_preprocess = lambda x:x
-    corpus = dataloader(args.inputdir, preprocess=mimic_doc_preprocessor)
+    corpus = dataloader(args.inputdir, preprocess=identity_preprocess)
 
     partitions = minibatch(corpus, size=args.batch_size)
     executor = Parallel(n_jobs=args.n_procs,
@@ -135,9 +139,16 @@ if __name__ == '__main__':
     argparser.add_argument("-d", "--disable", type=str,
                            default="ner,parser,tagger",
                            help="disable spaCy components")
+    argparser.add_argument("--keep_whitespace", action='store_true',
+                           help='retain whitespace tokens')
+
+    argparser.add_argument("-m", "--max_sent_len", type=int, default=150,
+                           help='Max sentence length (in words)')
+    argparser.add_argument("-M", "--merge_terms", type=str, default=None,
+                           help='Do not split lines spanning these phrases')
 
     argparser.add_argument("--quiet", action='store_true',
-                           help="supress logging")
+                           help="suppress logging")
     args = argparser.parse_args()
 
     if not args.quiet:

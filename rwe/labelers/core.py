@@ -47,15 +47,20 @@ class LabelingServer(Distributed):
         """
         blocks = Xs
         if block_size == 'auto':
-            block_size = int(np.ceil(np.sum([len(x) for x in Xs]) / self.num_workers))
+            block_size = int(
+                np.ceil(np.sum([len(x) for x in Xs]) / self.num_workers)
+            )
             if self.verbose:
                 print(f'auto block size={block_size}')
 
         if block_size:
-            blocks = list(partition_all(block_size, itertools.chain.from_iterable(Xs)))
+            blocks = list(
+                partition_all(block_size, itertools.chain.from_iterable(Xs))
+            )
 
         if self.verbose:
-            print(f"Partitioned into {len(blocks)} blocks, {np.unique([len(x) for x in blocks])} sizes")
+            sizes = np.unique([len(x) for x in blocks])
+            print(f"Partitioned into {len(blocks)} blocks, {sizes} sizes")
 
         do = delayed(partial(LabelingServer.worker, lfs))
         jobs = (do(batch) for batch in blocks)
