@@ -2,7 +2,7 @@
 
 Weak supervision methods for extracting patient outcomes from clinical EHR text.
 
-**NOTE**: Our original code was written in [Snorkel v0.7](https://github.com/snorkel-team/snorkel-extraction) and parts of [Snorkel MeTaL]() which are now depricated. We've ported a simple, example pipeline for use with the latest release of [Snorkel v0.9.1](https://github.com/snorkel-team/snorkel). 
+**NOTE**: Our original code was written in [Snorkel v0.7](https://github.com/snorkel-team/snorkel-extraction) and parts of [Snorkel MeTaL]() which are now deprecated. We've ported a simple, example pipeline for use with the latest release of [Snorkel v0.9.1](https://github.com/snorkel-team/snorkel). 
 
 ## Contents
 * [Project Status](#project-status)
@@ -12,7 +12,7 @@ Weak supervision methods for extracting patient outcomes from clinical EHR text.
 
 ## Installation
 
-We've provided a small set of annotated `pain-anatomy` releations from the 2014 ShARe/CLEF dataset. 
+We've provided a small set of annotated `pain-anatomy` relations from the 2014 ShARe/CLEF dataset. 
 
 
 ## Tutorials
