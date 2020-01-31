@@ -1,0 +1,49 @@
+T1	Concept 901 922	left hip arthroplasty
+T2	Concept 4314 4322	hardware
+T3	Concept 460 466	failed
+T4	Concept 11296 11301	screw
+T5	Concept 4535 4542	removal
+T6	Concept 325 331	failed
+T7	Concept 7432 7444	complication
+T8	Concept 11380 11392	femoral head
+T9	Concept 7390 7398	hardware
+T10	Concept 817 825	collapse
+T11	Concept 6817 6829	complication
+T12	Concept 1736 1746	tenderness
+T13	Concept 12077 12081	pain
+T14	Concept 258 262	Pain
+T15	Concept 12071 12076	chest
+T16	Concept 11341 11349	fracture
+T17	Concept 4546 4552	failed
+T18	Concept 4314 4330	hardware removal
+T19	Concept 4467 4492	left hip hemiarthroplasty
+T20	Concept 4447 4452	screw
+T21	Concept 888 896	hardware
+T22	Concept 877 884	removal
+T23	Concept 749 756	implant
+T24	Concept 11260 11266	Failed
+T25	Concept 381 406	left hip hemiarthroplasty
+T26	Concept 796 804	nonunion
+T27	Concept 449 456	removal
+T28	Concept 249 257	Left Hip
+T29	Concept 11354 11372	avascular necrosis
+T30	Concept 472 480	hardware
+T31	Concept 1731 1735	calf
+T32	Concept 11873 11877	pain
+T33	Concept 6775 6783	hardware
+T34	Concept 757 763	failed
+T35	Concept 361 366	screw
+T36	Concept 4344 4360	hemiarthroplasty
+T37	Concept 838 846	fracture
+T38	Concept 4411 4417	failed
+T39	Concept 4558 4566	hardware
+R1	X-at Arg1:T28 Arg2:T14	
+R2	X-at Arg1:T27 Arg2:T30	
+R3	X-at Arg1:T3 Arg2:T30	
+R4	X-at Arg1:T6 Arg2:T35	
+R5	X-at Arg1:T23 Arg2:T34	
+R6	X-at Arg1:T22 Arg2:T21	
+R7	X-at Arg1:T38 Arg2:T20	
+R8	X-at Arg1:T17 Arg2:T39	
+R9	X-at Arg1:T5 Arg2:T39	
+R10	X-at Arg1:T24 Arg2:T4	

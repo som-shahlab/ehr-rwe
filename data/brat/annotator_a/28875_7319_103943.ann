@@ -1,0 +1,19 @@
+T1	Concept 2292 2301	right hip
+T2	Concept 5510 5514	pain
+T3	Concept 6864 6868	nose
+T4	Concept 6821 6825	pain
+T5	Concept 3147 3155	hematoma
+T6	Concept 389 398	right hip
+T7	Concept 2328 2330	LE
+T8	Concept 3059 3067	stenosis
+T9	Concept 399 404;405 417	total arthroplasty
+T10	Concept 3095 3123	right total hip arthroplasty
+T11	Concept 5480 5485	bowel
+T12	Concept 491 500	right hip
+T13	Concept 2287 2291	pain
+T14	Concept 6834 6837	hip
+T15	Concept 501 505	pain
+T16	Concept 433 441	stenosis
+T17	Concept 395 404	hip total
+R1	X-at Arg1:T12 Arg2:T15	
+R2	X-at Arg1:T13 Arg2:T1	

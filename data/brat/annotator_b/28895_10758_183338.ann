@@ -1,0 +1,39 @@
+T1	Concept 4585 4605	femoral traction pin
+T2	Concept 3856 3866	acetabular
+T3	Concept 4571 4579	fracture
+T4	Concept 1415 1421	tender
+T5	Concept 7280 7290	acetabular
+T6	Concept 4295 4303	fracture
+T7	Concept 6075 6081	clamps
+T8	Concept 4333 4351	right femoral head
+T9	Concept 1435 1441	pelvis
+T10	Concept 10335 10343	fracture
+T11	Concept 10324 10334	acetabular
+T12	Concept 552 572	femoral traction pin
+T13	Concept 4151 4159	fracture
+T14	Concept 4868 4876	fracture
+T15	Concept 7291 7299	fracture
+T16	Concept 4693 4701	fracture
+T17	Concept 286 290	Pain
+T18	Concept 4829 4847	right femoral head
+T19	Concept 518 526	fracture
+T20	Concept 4795 4806	subluxation
+T21	Concept 7832 7841	sensitive
+T22	Concept 507 517	acetabular
+T23	Concept 3867 3875	fracture
+T24	Concept 3880 3892	traction pin
+T25	Concept 4317 4325	fracture
+T26	Concept 788 792	pain
+T27	Concept 4560 4570	acetabular
+T28	Concept 8044 8049	spine
+T29	Concept 276 285	Right Hip
+T30	Concept 6118 6125	removal
+T31	Concept 4181 4186;4187 4199	right femoral head
+T32	Concept 4857 4867	acetabular
+T33	Concept 6009 6015	screws
+T34	Concept 778 787	right hip
+R1	X-at Arg1:T29 Arg2:T17	
+R2	X-at Arg1:T34 Arg2:T26	
+T35	Concept 1422 1434	R trochantor
+R3	X-at Arg1:T4 Arg2:T35	
+R4	X-at Arg1:T4 Arg2:T9	

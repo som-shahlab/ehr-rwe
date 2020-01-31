@@ -1,0 +1,9 @@
+T1	Concept 934 949	lower abdominal
+T2	Concept 1272 1276	pain
+T3	Concept 1807 1818	replacement
+T4	Concept 1803 1818	hip replacement
+T5	Concept 1746 1756	infections
+T6	Concept 950 958	cramping
+T7	Concept 1280 1289	tightness
+T8	Concept 1266 1271	chest
+R1	X-at Arg1:T1 Arg2:T6	

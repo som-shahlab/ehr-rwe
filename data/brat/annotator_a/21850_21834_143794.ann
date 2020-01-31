@@ -1,0 +1,7 @@
+T1	Concept 293 298	chest
+T2	Concept 3059 3063	pain
+T3	Concept 299 303	pain
+T4	Concept 929 955	left total hip replacement
+T5	Concept 944 955	replacement
+T6	Concept 3053 3058	chest
+R1	X-at Arg1:T1 Arg2:T3	

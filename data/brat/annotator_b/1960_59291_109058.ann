@@ -1,0 +1,18 @@
+T1	Concept 307 310	jaw
+T2	Concept 271 276	Chest
+T3	Concept 8323 8327	pain
+T4	Concept 8158 8169	replacement
+T5	Concept 1201 1212	replacement
+T6	Concept 2226 2233	Abdomen
+T7	Concept 8361 8368	Sternal
+T8	Concept 8409 8417	Leg left
+T9	Concept 8085 8099	Osteoarthritis
+T10	Concept 1187 1212	bilateral hip replacement
+T11	Concept 277 281	pain
+T12	Concept 1136 1150	Osteoarthritis
+T13	Concept 2273 2279	tender
+T14	Concept 8144 8169	bilateral hip replacement
+R1	X-at Arg1:T2 Arg2:T11	
+T15	Concept 295 302	midback
+R2	X-at Arg1:T11 Arg2:T15	
+R3	X-at Arg1:T11 Arg2:T1	

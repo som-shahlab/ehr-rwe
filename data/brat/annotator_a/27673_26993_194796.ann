@@ -1,0 +1,13 @@
+T1	Concept 350 357	removal
+T2	Concept 482 486	pain
+T3	Concept 1689 1696	removal
+T4	Concept 587 594	removal
+T5	Concept 369 374	wires
+T6	Concept 305 309	pain
+T7	Concept 515 522	sternal
+T8	Concept 582 586	wire
+T9	Concept 286 293	sternal
+T10	Concept 2270 2275	wires
+T11	Concept 2276 2283	removal
+T12	Concept 1683 1688	wires
+R1	X-at Arg1:T9 Arg2:T6	

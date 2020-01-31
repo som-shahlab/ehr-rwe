@@ -1,0 +1,21 @@
+T1	Concept 3859 3871	femoral neck
+T2	Concept 4647 4657	tenderness
+T3	Concept 4570 4580	tenderness
+T4	Concept 333 342	Abdominal
+T5	Concept 1359 1363	pain
+T6	Concept 4745 4751	tissue
+T7	Concept 8111 8116	chest
+T8	Concept 4560 4569	abdominal
+T9	Concept 1354 1358	foot
+T10	Concept 8117 8121	pain
+T11	Concept 11902 11911	abdominal
+T12	Concept 4776 4796	dorsum of right foot
+T13	Concept 3806 3818	Osteoporosis
+T14	Concept 4546 4553	Abdomen
+T15	Concept 4807 4810	toe
+T16	Concept 11912 11916	pain
+T17	Concept 343 347	pain
+R1	X-at Arg1:T4 Arg2:T17	
+R2	X-at Arg1:T9 Arg2:T5	
+R3	X-at Arg1:T8 Arg2:T3	
+R4	X-at Arg1:T11 Arg2:T16	

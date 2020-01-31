@@ -1,0 +1,12 @@
+T1	Concept 2779 2783	pain
+T2	Concept 563 567	pain
+T3	Concept 345 353	revision
+T4	Concept 552 562	left groin
+T5	Concept 330 344	Left total hip
+T6	Concept 3452 3460	revision
+T7	Concept 2773 2778	chest
+T8	Concept 3437 3451	Left total hip
+T9	Concept 286 290	pain
+T10	Concept 277 285	Left hip
+R1	X-at Arg1:T10 Arg2:T9	
+R2	X-at Arg1:T4 Arg2:T2	

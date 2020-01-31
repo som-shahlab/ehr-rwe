@@ -1,0 +1,34 @@
+T1	Concept 6878 6893	hip dislocation
+T2	Concept 239 243	pain
+T3	Concept 6177 6187	acetabular
+T4	Concept 2679 2696	left femoral head
+T5	Concept 8740 8755	hip dislocation
+T6	Concept 990 994	Neck
+T7	Concept 986 989	jaw
+T8	Concept 2337 2345	fracture
+T9	Concept 978 985	maxilla
+T10	Concept 6059 6076	left femoral head
+T11	Concept 2619 2627	fracture
+T12	Concept 6077 6085	fracture
+T13	Concept 6902 6912	acetabular
+T14	Concept 6913 6921	fracture
+T15	Concept 397 405	fracture
+T16	Concept 8663 8671	fracture
+T17	Concept 2244 2261	left femoral head
+T18	Concept 381 391	acetabular
+T19	Concept 8756 8766	acetabular
+T20	Concept 1060 1066	Pelvis
+T21	Concept 8703 8711	fracture
+T22	Concept 6132 6149	left femoral head
+T23	Concept 1007 1017	tenderness
+T24	Concept 1176 1182	tender
+T25	Concept 2639 2647	fracture
+T26	Concept 962 972	tenderness
+T27	Concept 1001 1006	spine
+T28	Concept 6947 6956	fractures
+T29	Concept 2608 2618	acetabular
+T30	Concept 230 238	Left Hip
+T31	Concept 1166 1170	Back
+T32	Concept 6188 6196	fracture
+T33	Concept 1071 1081	tenderness
+R1	X-at Arg1:T30 Arg2:T2	

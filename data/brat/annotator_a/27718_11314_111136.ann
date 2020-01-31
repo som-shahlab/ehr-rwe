@@ -1,0 +1,6 @@
+T1	Concept 9544 9548	pain
+T2	Concept 9540 9543	abd
+T3	Concept 286 290	pain
+T4	Concept 280 285	chest
+R1	X-at Arg1:T4 Arg2:T3	
+R2	X-at Arg1:T2 Arg2:T1	

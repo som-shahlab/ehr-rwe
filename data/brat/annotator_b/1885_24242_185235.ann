@@ -1,0 +1,13 @@
+T1	Concept 936 947	replacement
+T2	Concept 314 330	substernal chest
+T3	Concept 235 251	substernal chest
+T4	Concept 252 256	pain
+T5	Concept 898 902	pain
+T6	Concept 907 910	hip
+T7	Concept 331 335	pain
+T8	Concept 911 915	pain
+T9	Concept 927 947	left hip replacement
+T10	Concept 980 989	infection
+T11	Concept 181 196	coronary artery
+T12	Concept 893 897	back
+R1	X-at Arg1:T3 Arg2:T4	

@@ -1,0 +1,20 @@
+T1	Concept 7159 7171	complication
+T2	Concept 528 532	pain
+T3	Concept 282 287	Chest
+T4	Concept 5374 5379	wires
+T5	Concept 511 527	substernal chest
+T6	Concept 597 602	chest
+T7	Concept 7373 7377	pain
+T8	Concept 705 709	pain
+T9	Concept 699 704	Chest
+T10	Concept 603 607	pain
+T11	Concept 7132 7137	wires
+T12	Concept 7367 7372	Chest
+T13	Concept 7279 7284	chest
+T14	Concept 5394 5401	changes
+T15	Concept 7285 7289	pain
+T16	Concept 288 292	pain
+R1	X-at Arg1:T3 Arg2:T16	
+R2	X-at Arg1:T5 Arg2:T2	
+R3	X-at Arg1:T6 Arg2:T10	
+R4	X-at Arg1:T9 Arg2:T8	

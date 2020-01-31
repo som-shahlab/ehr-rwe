@@ -1,0 +1,64 @@
+T1	Concept 1846 1851	edema
+T2	Concept 8105 8109	pain
+T3	Concept 477 481	pain
+T4	Concept 8122 8126	pain
+T5	Concept 8177 8181	pain
+T6	Concept 1567 1578	replacement
+T7	Concept 5028 5037	abdominal
+T8	Concept 1662 1666	pain
+T9	Concept 13412 13417	chest
+T10	Concept 13104 13109	chest
+T11	Concept 230 235	chest
+T12	Concept 1075 1080	chest
+T13	Concept 1714 1725	optic nerve
+T14	Concept 12905 12909	pain
+T15	Concept 1081 1085	pain
+T16	Concept 13418 13422	pain
+T17	Concept 1557 1578	Total hip replacement
+T18	Concept 7769 7773	Pain
+T19	Concept 5000 5004	pain
+T20	Concept 1188 1192	pain
+T21	Concept 8095 8104	abdominal
+T22	Concept 1651 1661	lower back
+T23	Concept 8669 8673	pain
+T24	Concept 7762 7766	pain
+T25	Concept 236 240	pain
+T26	Concept 7756 7761	Chest
+T27	Concept 1272 1277;1278 1282	lower back
+T28	Concept 8664 8668	back
+T29	Concept 487 491	pain
+T30	Concept 1283 1287	pain
+T31	Concept 5038 5042	pain
+T32	Concept 1111 1120	abdominal
+T33	Concept 508 512	back
+T34	Concept 8112 8121	Abdominal
+T35	Concept 13110 13114	pain
+T36	Concept 8172 8176	back
+T37	Concept 1121 1125	pain
+T38	Concept 460 476	substernal chest
+T39	Concept 660 663	leg
+T40	Concept 4994 4999	chest
+T41	Concept 1182 1187	chest
+T42	Concept 664 668	pain
+T43	Concept 1634 1642	stenosis
+T44	Concept 1563 1566	hip
+T45	Concept 12899 12904	chest
+T46	Concept 766 771	chest
+T47	Concept 772 776	pain
+R1	X-at Arg1:T11 Arg2:T25	
+R2	X-at Arg1:T38 Arg2:T3	
+R3	X-at Arg1:T29 Arg2:T33	
+R4	X-at Arg1:T46 Arg2:T47	
+R5	X-at Arg1:T12 Arg2:T15	
+R6	X-at Arg1:T32 Arg2:T37	
+R7	X-at Arg1:T41 Arg2:T20	
+R8	X-at Arg1:T27 Arg2:T30	
+R10	X-at Arg1:T40 Arg2:T19	
+R11	X-at Arg1:T7 Arg2:T31	
+R12	X-at Arg1:T26 Arg2:T24	
+R13	X-at Arg1:T21 Arg2:T2	
+R14	X-at Arg1:T34 Arg2:T4	
+R15	X-at Arg1:T36 Arg2:T5	
+R16	X-at Arg1:T28 Arg2:T23	
+R17	X-at Arg1:T45 Arg2:T14	
+R18	X-at Arg1:T10 Arg2:T35	

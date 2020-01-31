@@ -1,0 +1,21 @@
+T1	Concept 9401 9410	sensitive
+T2	Concept 13667 13671	pain
+T3	Concept 935 939	pain
+T4	Concept 802 806	wire
+T5	Concept 2689 2695	tender
+T6	Concept 13563 13572	Infection
+T7	Concept 320 324	pain
+T8	Concept 925 934	abdominal
+T9	Concept 13712 13719	Sternal
+T10	Concept 671 675	pain
+T11	Concept 13395 13399	wire
+T12	Concept 13760 13763	Leg
+T13	Concept 661 670	abdominal
+T14	Concept 310 319	Abdominal
+T15	Concept 2649 2656	Abdomen
+T16	Concept 807 814	removal
+T17	Concept 13400 13407	removal
+T18	Concept 9299 9311	aortic valve
+R1	X-at Arg1:T14 Arg2:T7	
+R2	X-at Arg1:T13 Arg2:T10	
+R3	X-at Arg1:T8 Arg2:T3	

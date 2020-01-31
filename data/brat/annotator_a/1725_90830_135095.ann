@@ -1,0 +1,14 @@
+T1	Concept 598 606	hardware
+T2	Concept 302 310	Revision
+T3	Concept 587 594	removal
+T4	Concept 242 246	pain
+T5	Concept 345 352	removal
+T6	Concept 388 397	component
+T7	Concept 3708 3719	dislocation
+T8	Concept 618 627	component
+T9	Concept 788 799	dislocation
+T10	Concept 3740 3744	head
+T11	Concept 3745 3755	prosthesis
+T12	Concept 231 241	L shoulder
+T13	Concept 356 364	hardware
+R1	X-at Arg1:T12 Arg2:T4	

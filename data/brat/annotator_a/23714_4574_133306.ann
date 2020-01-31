@@ -1,0 +1,16 @@
+T1	Concept 289 293	pain
+T2	Concept 366 377	heterotopic
+T3	Concept 333 360	Left total hip arthroplasty
+T4	Concept 6410 6414	pain
+T5	Concept 6461 6469	left leg
+T6	Concept 2576 2587	replacement
+T7	Concept 2561 2587	left total hip replacement
+T8	Concept 280 288	Left hip
+T9	Concept 2593 2604	heterotopic
+R1	X-at Arg1:T8 Arg2:T1	
+T10	Concept 486 498;499 511	heterotropic ossification
+T11	Concept 517 533	essential fusion
+R2	X-at Arg1:T10 Arg2:T11	
+T12	Concept 6215 6237	Left heterotropic bone
+T13	Concept 6243 6263	essential hip fusion
+R3	X-at Arg1:T12 Arg2:T13	

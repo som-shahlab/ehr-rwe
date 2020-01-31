@@ -1,0 +1,15 @@
+T1	Concept 547 550	arm
+T2	Concept 551 555	pain
+T3	Concept 534 542	left jaw
+T4	Concept 666 687	right hip replacement
+T5	Concept 292 296	pain
+T6	Concept 806 810	pain
+T7	Concept 676 687	replacement
+T8	Concept 578 582	pain
+T9	Concept 286 291	chest
+T10	Concept 801 805	back
+T11	Concept 561 577	substernal chest
+R1	X-at Arg1:T9 Arg2:T5	
+R2	X-at Arg1:T3 Arg2:T2	
+R3	X-at Arg1:T1 Arg2:T2	
+R4	X-at Arg1:T11 Arg2:T8	

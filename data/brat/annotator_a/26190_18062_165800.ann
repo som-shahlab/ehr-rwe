@@ -1,0 +1,10 @@
+T1	Concept 4386 4391	wires
+T2	Concept 2523 2528	chest
+T3	Concept 4413 4425	complication
+T4	Concept 284 289	Chest
+T5	Concept 4561 4566	Chest
+T6	Concept 290 300	discomfort
+T7	Concept 2529 2533	pain
+T8	Concept 4567 4577	discomfort
+R1	X-at Arg1:T4 Arg2:T6	
+R2	X-at Arg1:T2 Arg2:T7	

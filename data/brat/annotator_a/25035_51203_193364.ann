@@ -1,0 +1,40 @@
+T1	Concept 9666 9673	removal
+T2	Concept 20310 20315	chest
+T3	Concept 17819 17832	Osteomyelitis
+T4	Concept 17260 17265	chest
+T5	Concept 12169 12176	Removal
+T6	Concept 750 754	pain
+T7	Concept 1526 1541	lower extremity
+T8	Concept 20389 20393	pain
+T9	Concept 8953 8969	hardware failure
+T10	Concept 14092 14097	chest
+T11	Concept 20316 20320	pain
+T12	Concept 273 278	chest
+T13	Concept 433 449	hardware removal
+T14	Concept 694 704;705 714	left lower extremity
+T15	Concept 17846 17853	failure
+T17	Concept 1463 1467	pain
+T18	Concept 20402 20416	left lower leg
+T19	Concept 1453 1462	abdominal
+T20	Concept 8953 8961	hardware
+T21	Concept 744 749	chest
+T22	Concept 17867 17883	hardware removal
+T23	Concept 17867 17875	hardware
+T24	Concept 279 283	pain
+T25	Concept 12139 12168	Left Lower Extremity Hardware
+T26	Concept 17266 17270	pain
+T27	Concept 10232 10237	screw
+T28	Concept 433 441	hardware
+T29	Concept 12242 12247	screw
+T30	Concept 14098 14102	pain
+T31	Concept 8973 8992	change in alignment
+T32	Concept 10208 10215	removal
+T33	Concept 715 722	plantar
+R1	X-at Arg1:T12 Arg2:T24	
+R2	X-at Arg1:T21 Arg2:T6	
+R3	X-at Arg1:T10 Arg2:T30	
+T16	Concept 9653 9665	LLE hardware
+R4	X-at Arg1:T16 Arg2:T1	
+T34	Concept 10196 10207	LLE harware
+R5	X-at Arg1:T34 Arg2:T32	
+R6	X-at Arg1:T25 Arg2:T5	

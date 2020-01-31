@@ -1,0 +1,15 @@
+T1	Concept 1235 1245	tenderness
+T2	Concept 3552 3563	dislocation
+T3	Concept 279 287	hardware
+T4	Concept 425 433	hardware
+T5	Concept 425 441	hardware failure
+T6	Concept 224 228	pain
+T7	Concept 214 223	right hip
+T8	Concept 293 298	R THA
+T9	Concept 1230 1234	calf
+T10	Concept 268 275	Removal
+T11	Concept 377 385	fracture
+T12	Concept 3445 3454	component
+T13	Concept 3503 3513	components
+R1	X-at Arg1:T7 Arg2:T6	
+R2	X-at Arg1:T10 Arg2:T3	

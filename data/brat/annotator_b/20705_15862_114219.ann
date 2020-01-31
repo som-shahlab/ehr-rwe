@@ -1,0 +1,4 @@
+T1	Concept 244 249	nerve
+T2	Concept 275 283	numbness
+T3	Concept 268 274	facial
+R1	X-at Arg1:T3 Arg2:T2	

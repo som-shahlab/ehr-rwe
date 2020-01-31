@@ -1,0 +1,40 @@
+T1	Concept 551 563	osteoporosis
+T2	Concept 680 684	pain
+T3	Concept 3238 3243	bowel
+T4	Concept 8195 8204	right hip
+T5	Concept 628 631	hip
+T6	Concept 14380 14389	component
+T7	Concept 961 965	pain
+T8	Concept 955 960	chest
+T9	Concept 3196 3203	Abdomen
+T10	Concept 8146 8173	right total hip replacement
+T11	Concept 297 301	pain
+T12	Concept 632 643	replacement
+T13	Concept 970 973	abd
+T14	Concept 974 978	pain
+T15	Concept 14329 14339	dislocated
+T16	Concept 3271 3281	tenderness
+T17	Concept 676 679	Hip
+T18	Concept 3813 3820	Abdomen
+T19	Concept 3832 3838	tender
+T20	Concept 21991 22003	polyethylene
+T21	Concept 936 939	hip
+T22	Concept 8069 8081	osteoporosis
+T23	Concept 1435 1445	acetabular
+T24	Concept 660 669	right hip
+T25	Concept 291 296	R hip
+T26	Concept 21903 21906	DVT
+T27	Concept 3215 3221	tender
+T28	Concept 1425 1434	displaced
+T29	Concept 14340 14345;14346 14362	total hip arthroplasty
+T30	Concept 628 631;632 643	hip replacement
+T31	Concept 8352 8356	stem
+T32	Concept 8162 8173	replacement
+T33	Concept 670 674	pain
+T34	Concept 940 944	pain
+R1	X-at Arg1:T25 Arg2:T11	
+R2	X-at Arg1:T24 Arg2:T33	
+R3	X-at Arg1:T17 Arg2:T2	
+R4	X-at Arg1:T21 Arg2:T34	
+T35	Concept 8205 8216	dislocation
+R5	X-at Arg1:T4 Arg2:T35	

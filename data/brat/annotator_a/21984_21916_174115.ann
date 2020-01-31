@@ -1,0 +1,12 @@
+T1	Concept 1437 1444	Abdomen
+T2	Concept 1494 1504	tenderness
+T3	Concept 4144 4148;4149 4157	left shoulder
+T4	Concept 505 510	chest
+T5	Concept 4158 4162	pain
+T6	Concept 511 515	pain
+T7	Concept 410 414	pain
+T8	Concept 363 372	abdominal
+T9	Concept 832 843	replacement
+T10	Concept 816 831;832 843	right total hip replacement
+R1	X-at Arg1:T3 Arg2:T5	
+R2	X-at Arg1:T1 Arg2:T2	

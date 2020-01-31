@@ -1,0 +1,16 @@
+T1	Concept 4304 4308	pain
+T2	Concept 2670 2674	stem
+T3	Concept 376 395	left periprosthetic
+T4	Concept 2682 2694	femoral head
+T5	Concept 402 410	fracture
+T6	Concept 1817 1823	tender
+T7	Concept 272 280	Left hip
+T8	Concept 2695 2705	prosthesis
+T9	Concept 1804 1811	Abdomen
+T10	Concept 4263 4271	left leg
+T11	Concept 281 285	pain
+T12	Concept 1847 1852	bowel
+T13	Concept 7748 7753	chest
+T14	Concept 2616 2624	fracture
+T15	Concept 7754 7758	pain
+R1	X-at Arg1:T7 Arg2:T11	

@@ -1,0 +1,10 @@
+T1	Concept 1271 1275	calf
+T2	Concept 8930 8934	pain
+T3	Concept 265 271	R knee
+T4	Concept 342 364	total knee replacement
+T5	Concept 9134 9138	pain
+T6	Concept 9128 9133	chest
+T7	Concept 353 364	replacement
+T8	Concept 1276 1286	tenderness
+T9	Concept 272 276	pain
+R1	X-at Arg1:T3 Arg2:T9	

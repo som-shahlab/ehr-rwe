@@ -1,0 +1,18 @@
+T1	Concept 526 535	abdominal
+T2	Concept 433 437	pain
+T3	Concept 2598 2601	rib
+T4	Concept 1615 1619	pain
+T5	Concept 1630 1634	pain
+T6	Concept 421 432	right flank
+T7	Concept 2589 2593	pain
+T8	Concept 1603 1614	right chest
+T9	Concept 3869 3873	pain
+T10	Concept 536 540	pain
+T11	Concept 1624 1629	flank
+T12	Concept 405 416	right chest
+T13	Concept 3863 3868	chest
+R1	X-at Arg1:T6 Arg2:T2	
+R2	X-at Arg1:T8 Arg2:T4	
+R3	X-at Arg1:T11 Arg2:T5	
+R4	X-at Arg1:T13 Arg2:T9	
+R5	X-at Arg1:T12 Arg2:T2	

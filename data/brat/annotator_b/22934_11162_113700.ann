@@ -1,0 +1,50 @@
+T1	Concept 9084 9088	pain
+T2	Concept 8528 8532	pain
+T3	Concept 18659 18665	R knee
+T4	Concept 15411 15415	pain
+T5	Concept 9533 9538	chest
+T6	Concept 8831 8835	knee
+T7	Concept 9846 9850	knee
+T8	Concept 9539 9543	pain
+T9	Concept 4103 4107	knee
+T10	Concept 271 280	left knee
+T11	Concept 3838 3840	S1
+T12	Concept 9742 9747	chest
+T13	Concept 3846 3848	S2
+T14	Concept 15615 15619	pain
+T15	Concept 7974 7978	pain
+T16	Concept 281 285	pain
+T17	Concept 19756 19760	pain
+T18	Concept 617 620	DJD
+T19	Concept 15609 15614	chest
+T20	Concept 9401 9405	pain
+T21	Concept 19750 19755	chest
+T22	Concept 9078 9083	chest
+T23	Concept 6547 6569	total knee replacement
+T24	Concept 341 352	replacement
+T25	Concept 7968 7973	chest
+T26	Concept 6558 6569	replacement
+T27	Concept 589 612	total knee arthroplasty
+T28	Concept 9748 9752	pain
+T29	Concept 9064 9068	knee
+T30	Concept 9069 9073	pain
+T31	Concept 19714 19719	heart
+T32	Concept 4083 4093	tenderness
+T33	Concept 13081 13085	pain
+T34	Concept 8522 8527	chest
+T35	Concept 330 352	total knee replacement
+T36	Concept 8836 8840	pain
+T37	Concept 9578 9582	pain
+T38	Concept 18646 18650	pain
+T39	Concept 9396 9400	knee
+T40	Concept 13075 13080	chest
+T41	Concept 3730 3736	tender
+R1	X-at Arg1:T10 Arg2:T16	
+R2	X-at Arg1:T25 Arg2:T15	
+R3	X-at Arg1:T29 Arg2:T30	
+R4	X-at Arg1:T22 Arg2:T1	
+R5	X-at Arg1:T39 Arg2:T20	
+R7	X-at Arg1:T12 Arg2:T28	
+R8	X-at Arg1:T38 Arg2:T3	
+T42	Concept 19687 19698	metal stent
+R9	X-at Arg1:T21 Arg2:T17	

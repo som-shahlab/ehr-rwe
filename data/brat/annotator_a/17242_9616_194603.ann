@@ -1,0 +1,6 @@
+T1	Concept 422 426	pain
+T2	Concept 268 272	pain
+T3	Concept 413 421	left arm
+T4	Concept 277 287	discomfort
+T5	Concept 259 267	left arm
+R1	X-at Arg1:T3 Arg2:T1	

@@ -1,0 +1,8 @@
+T1	Concept 12724 12730	defect
+T2	Concept 205 214	abdominal
+T3	Concept 992 996	pain
+T4	Concept 12748 12758	prosthetic
+T5	Concept 215 219	pain
+T6	Concept 982 991	abdominal
+R1	X-at Arg1:T2 Arg2:T5	
+R2	X-at Arg1:T6 Arg2:T3	

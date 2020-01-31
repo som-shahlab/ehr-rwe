@@ -1,0 +1,14 @@
+T1	Concept 871 875	Pain
+T2	Concept 837 841	pain
+T3	Concept 271 275	pain
+T4	Concept 261 270	abdominal
+T5	Concept 920 929	R scapula
+T6	Concept 6020 6025	chest
+T7	Concept 486 490	pain
+T8	Concept 6055 6064	tightness
+T9	Concept 6026 6030	pain
+T10	Concept 476 485	abdominal
+T11	Concept 831 836	chest
+R1	X-at Arg1:T4 Arg2:T3	
+R2	X-at Arg1:T10 Arg2:T7	
+R3	X-at Arg1:T1 Arg2:T5	

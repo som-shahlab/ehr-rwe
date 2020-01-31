@@ -1,0 +1,33 @@
+T1	Concept 767 772	chest
+T2	Concept 221 230	right hip
+T3	Concept 3035 3039	pain
+T4	Concept 7946 7954	fracture
+T5	Concept 7289 7299	acetabular
+T6	Concept 14777 14786	infection
+T7	Concept 4994 5003	migration
+T8	Concept 14574 14593	comminuted fracture
+T9	Concept 773 777	pain
+T10	Concept 7852 7861	displaced
+T11	Concept 291 301	acetabular
+T12	Concept 2965 2971	muscle
+T13	Concept 7377 7385	fracture
+T14	Concept 2854 2863	right hip
+T15	Concept 14563 14573	acetabular
+T16	Concept 14654 14661	failure
+T17	Concept 2864 2868	pain
+T18	Concept 4931 4939	fracture
+T19	Concept 14726 14732	device
+T20	Concept 7935 7945	acetabular
+T21	Concept 231 235	pain
+T22	Concept 7420 7428	fracture
+T23	Concept 2842 2852	tenderness
+T24	Concept 7326 7334	fracture
+T25	Concept 814 820	tongue
+T26	Concept 7366 7376	acetabular
+T27	Concept 5011 5029	right femoral head
+T28	Concept 332 339	removal
+T29	Concept 14619 14627	fracture
+R1	X-at Arg1:T2 Arg2:T21	
+R2	X-at Arg1:T14 Arg2:T17	
+T30	Concept 3024 3027	RLE
+R3	X-at Arg1:T30 Arg2:T3	
