@@ -72,6 +72,14 @@ def process_clinical_notes(docs):
 		row['CHARTTIME'] = str(charttime)  if charttime is not None else np.nan  
 		docs[row_id] = row
 
+		# write text to .txt file in ../data/brat/ directories to accompany the corresponding .ann files
+		if os.path.exists(f"../data/brat/annotator_a/{row['DOC_NAME']}.ann"):
+			with open(f"../data/brat/annotator_a/{row['DOC_NAME']}.txt", 'w') as fp:
+				fp.write(text)
+
+			with open(f"../data/brat/annotator_b/{row['DOC_NAME']}.txt", 'w') as fp:
+				fp.write(text)
+
 def dump_tsvs(dataset, fpath):
 	for name in dataset:
 		if not os.path.exists(f'{fpath}/{name}'):
@@ -89,7 +97,6 @@ def dump_tsvs(dataset, fpath):
 				values = [str(row[col]) for col in header]
 				line = '\t'.join(values)
 				fp.write(f'{line}\n')
-
 
 def main(args):
 	mimic_notes_fpath = args.mimic_notes
