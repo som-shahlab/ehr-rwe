@@ -41,7 +41,28 @@ def process_clinical_notes(docs):
 		
 		# get structured chart time
 		doc_ts = charttime.year if charttime else chartdate.year
-		
+
+		if type(row['HADM_ID']) is not str and np.isnan(row['HADM_ID']):
+			row['HADM_ID'] = 'NaN'
+		else:
+			row['HADM_ID'] = int(row['HADM_ID'])
+
+		row['SUBJECT_ID'] = int(row['SUBJECT_ID'])
+		row['ROW_ID'] = int(row['ROW_ID'])
+
+		row['DOC_NAME'] = f"{row['ROW_ID']}_{row['SUBJECT_ID']}_{row['HADM_ID']}"
+
+		# export original, unprocessed notes to match BRAT annotations
+		# write text to .txt file in ../data/brat/ directories to accompany the corresponding .ann files
+		if os.path.exists(f"../data/brat/annotator_a/{row['DOC_NAME']}.ann"):
+			with open(f"../data/brat/annotator_a/{row['DOC_NAME']}.txt", 'w') as fp:
+				#ntext = row['TEXT'].replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r')
+				fp.write(row['TEXT'])
+
+			with open(f"../data/brat/annotator_b/{row['DOC_NAME']}.txt", 'w') as fp:
+				#ntext = row['TEXT'].replace('\\n', '\n').replace('\\t','\t').replace('\\r', '\r')
+				fp.write(row['TEXT'])
+
 		# convert note text
 		text, tdelta = preprocess(row["TEXT"], doc_ts=doc_ts, preserve_offsets=True)
 		# escape whitespace
@@ -56,29 +77,11 @@ def process_clinical_notes(docs):
 			chartdate -= timedelta(days=tdelta * 365)
 		if charttime:
 			charttime -= timedelta(days=tdelta * 365)
-		
-		
-		if type(row['HADM_ID']) is not str and np.isnan(row['HADM_ID']):
-			row['HADM_ID'] = 'NaN'
-		else:
-			row['HADM_ID'] = int(row['HADM_ID'])
-		
-		row['SUBJECT_ID'] = int(row['SUBJECT_ID'])
-		row['ROW_ID'] = int(row['ROW_ID'])
-		
-		row['DOC_NAME'] = f"{row['ROW_ID']}_{row['SUBJECT_ID']}_{row['HADM_ID']}"
+
 		row['TEXT'] = text
 		row['CHARTDATE'] = str(chartdate.date())
 		row['CHARTTIME'] = str(charttime)  if charttime is not None else np.nan  
 		docs[row_id] = row
-
-		# write text to .txt file in ../data/brat/ directories to accompany the corresponding .ann files
-		if os.path.exists(f"../data/brat/annotator_a/{row['DOC_NAME']}.ann"):
-			with open(f"../data/brat/annotator_a/{row['DOC_NAME']}.txt", 'w') as fp:
-				fp.write(text)
-
-			with open(f"../data/brat/annotator_b/{row['DOC_NAME']}.txt", 'w') as fp:
-				fp.write(text)
 
 def dump_tsvs(dataset, fpath):
 	for name in dataset:

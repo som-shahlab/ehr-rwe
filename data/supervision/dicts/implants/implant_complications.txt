@@ -1,0 +1,427 @@
+27130
+27066
+27495
+27130-22
+27041
+996.4
+996.40
+996.41
+996.42
+996.43
+996.44
+996.45
+996.46
+996.47
+996.49
+996.6
+996.60
+996.66
+996.67
+996.70
+996.77
+996.78
+996.43C
+715.95
+714.00
+715.15
+719.45
+733.42
+733.42J
+726.5
+136.9BJ
+996.60D
+abnormal lucencies
+abnormal lucency
+abnormal lucent region
+abnormal lucent regions
+abnormal radiographic lucencies
+abnormal sclerosis
+abnormality
+abscess
+adverse local tissue reaction
+anteversion
+anteversion mismatch
+anteversion mismatches
+arthritis
+arthropathy
+arthrosis
+aseptic loosening
+aseptic necrosis
+aspherical
+asymmetric
+asymmetrically positioned
+asymmetrically seated
+asymmetry
+atrophic nonunion
+avascular necrosis
+avn
+avscular necrosis
+bearing surface wear
+bone cyst
+bone island
+bone lesions
+bone loss
+bony abnormality
+bony defect
+bony expansion
+bony in-growth
+bony ingrown
+bony lucency
+bony pathology
+bony resorption
+breakage
+broke
+broken
+bursitis
+calcar hypertrophy
+calcar resorption
+calcification
+calcified lesion
+cavitary defect
+cavitary defects
+cellulitis
+change
+change in alignment
+change in position
+changes
+changes in alignment
+chondrolysis
+circumferential lucent lines
+clicking
+collapse
+collapsed
+collase
+comminuted fracture
+complete dissociation
+complication
+complications
+contour abnormality
+core decompression
+corroded
+corrosion
+corrosion damage
+cortical collapse
+cortical irregularity
+cortical loss
+cortical sclerosis
+cortical thinning
+cracked
+crescentic lucency
+crooked
+cyst
+cyst formation
+cystic area
+cystic cavities
+cystic change
+cystic changes
+cystic lesion
+cystic lucencies
+cystic lucency
+cysts
+debonded
+debonding
+deep vein thrombosis
+deep venous thrombosis
+defect
+deformed
+deformities
+deformity
+degeneration
+degenerative arthritis
+degenerative change
+degenerative changes
+degenerative cyst
+degenerative disease
+degenerative joint disease
+destructive changes
+diffuse osteopenia
+dislocated
+dislocating
+dislocation
+dislocations
+dislodged
+displaced
+displacement
+displacements
+dissociation
+djd
+dvt
+dysplasia
+dysplastic
+ectopic ossification
+edema
+elliptical lucency
+elliptical lucent defect
+enthesopathy chondrocalcinosis
+eroded
+erosion
+erosions
+erosive change
+erosive changes
+errosion
+failed
+failure
+failure of ingrowth
+failure of osseointegration
+failure of osseous integration
+failure of osteointegration
+failures
+fibrocystic change
+fibrosing growth
+fibrous ingrown
+fibrous malunion
+flattened
+flattened contour
+flattening
+foreign bodies
+foreign body
+fracture
+fracture deformity
+fracture non-union
+fracture-dislocation
+fracture-dislocations
+fractured
+fractures
+fracturing
+functional loss
+generalized bony demineralization
+geographic lucency
+geographic pattern of lucency
+gpc
+group b strep
+group b strep infection
+hardware failure
+hardware failures
+hardware loosening
+hardware removal
+hematoma
+heterotopic
+heterotopic bone formation
+heterotopic calcification
+heterotopic ossification
+heterotopic ossifications
+hip dislocation
+hip failure
+hip loosening
+hydroxyapatite crystal deposition disease
+hydroxyapatite deposition
+hypertrophy
+iliopsoas bursitis
+iliopsoas impingement
+iliopsoas tendon impingement
+increased radiotracer uptake
+infected
+infected abscess
+infected hematoma
+infected nonunion
+infection
+infections
+inflammatory arthropathy
+inflammatory changes
+ingrown
+insufficiency / failure
+insufficiency / failures
+intra-operative complications
+intraoperative complications
+irregular sclerotic borders
+irregularity
+juvenile rheumatoid arthritis
+leg discrepancy
+leg length discrepancy
+lesion
+lesions
+limb length discrepancy
+liner failure
+local tissue reaction
+loose
+loosened
+loosening
+loosening fracture
+losening
+loss
+lucencies
+lucency
+lucent lesion
+lucent lesions
+lucent lines
+lucent region
+lucent regions
+lysis
+lytic lesion
+lytic lesions
+lytic metastases
+lytic process
+mal-placement
+mal-position
+malalignment
+malignant infiltration
+malposition
+malpositioning
+malunion
+mechanical complication
+mechanical failure
+mechanical loosening
+metal hypersensitivity
+metal ion toxicity
+metallosis
+metastases
+migration
+migrations
+misaligned
+modular junction wear
+myositis ossificans
+narrowing
+necrosis
+necrotizing granulomas
+nerve injury
+non-survival
+nonunion
+oa
+osseous erosion
+osteoarthritic change
+osteoarthritic changes
+osteoarthritis
+osteochondral lesion
+osteolysis
+osteolytic defects
+osteolytic lesions
+osteolytic metastases
+osteomyelitis
+osteonecrosis
+osteonecrotic
+osteonectrosis
+osteopenia
+osteophyte
+osteophyte formation
+osteophytes
+osteophytic changes
+osteophytic enlargement
+osteophytic reaction
+osteophytosis
+osteoporosis
+osteosclerosis
+pansensitive enterococcus bacteremia
+particle disease
+particle diseases
+patchy lucency
+patchy sclerosis
+pathologic fracture
+pedestal
+pedestal formation
+pedestal sign
+pedestalling
+peri-cement changes
+perimetallic lucency
+poly failure
+poly wear
+poly-wear
+polyethylene failure
+polyethylene wear
+popping
+post surgical changes
+post-op anemia
+post-surgical changes
+postoperative changes
+postsurgical changes
+posttraumatic arthrosis
+posttraumatic deformity
+protrusio
+protrusio abnormality
+protrusio acetabuli
+protrusio fracture
+pulmonary embolism
+pus
+radio lucencies
+radio-lucencies
+radiographic evidence of infection
+radiographic evidence of loosening
+radiographic lucencies
+radiolucencies
+radiolucency
+radiolucent
+radiolucent line
+radiolucent lines
+radiopacities
+radiopacity
+radiopaque
+re-aligned
+re-broken
+re-displacement
+re-fracture
+re-implantation
+re-infected
+re-infection
+reactive synovitis
+rebuilt
+reimplantation
+removal
+remove
+removement
+reoperation
+replaced
+replacement
+retroperitoneal abscess
+retroversion
+revised
+revision
+revisions
+rhematoid arthritis
+rheumatic disease
+rheumatoid arthritis
+rll
+rlls
+rotted
+sclerosis
+sclerotic
+sclerotic borders
+sclerotic change
+sclerotic changes
+sclerotic foci
+sclerotic lesion
+sclerotic lesions
+sepsis
+septic
+septic arthritis
+septic shock
+sequestrum
+seroma
+shatter
+shattered
+shattering
+shoe-lifting
+splintered
+splintering
+spurs
+stenosis
+structural change
+structural changes
+subarticular sclerosis
+sublux
+subluxated
+subluxating
+subluxation
+subluxation / dislocation
+subluxed
+subluxing
+subsidence
+subsidence dislocation
+superinfected
+surface collapse
+surgical changes
+synovial herniation pits
+synovitis
+thinning of bone
+trunnionosis
+tuberous sclerosis
+unspecified mechanical complication
+V43.69
+vascular necrosis
+venous thromboembolism
+vte
+weaken
+weakened
+weakening
+wear
+wearing
+wearing down
+worn

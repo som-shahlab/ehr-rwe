@@ -1,28 +1,68 @@
-# Medical Device Surveillance with EHRs
+# Weakly Supervised Clinical Text Classification 
 
-Weak supervision methods for extracting patient outcomes from clinical EHR text.
+This library provides tools for rapidly building clinical text classification tasks using [weakly supervised machine learning](https://hazyresearch.github.io/snorkel/blog/ws_blog_post.html). Obtaining labeled training data is a common roadblock to using machine learning with unstructured medical data such as patient notes. Weakly supervised methods allow domain experts to quickly refine training set construction, enabling the use of modern deep learning without time consuming manual training data curation. 
 
-**NOTE**: Our original code was written in [Snorkel v0.7](https://github.com/snorkel-team/snorkel-extraction) and parts of [Snorkel MeTaL]() which are now deprecated. We've ported a simple, example pipeline for use with the latest release of [Snorkel v0.9.1](https://github.com/snorkel-team/snorkel). 
+This library enables integrating common clinical text heuristics and other noisy labeling sources for use with Stanford's weak supervision framework [Snorkel](https://github.com/snorkel-team/snorkel). We developed these tools while working on our npj Digital Medicine paper ["Medical Device Surveillance with Electronic Health Records"](https://www.nature.com/articles/s41746-019-0168-z) focusing on lightweight code that makes it easier to extract real world patient outcomes from clinical notes. 
+
+### Features (2/4/2020)
+- Fast text tokenization, sentence boundary detection, and NLP preprocesssing using custom [spaCy](https://spacy.io/) modules optimized for clinical and biomedical text.
+- Lightweight information extraction pipeline for span and relation classification with multiprocessing support via [Joblib](https://joblib.readthedocs.io/en/latest/).
+- Tagging support for UMLS concepts, [TIMEX3](https://en.wikipedia.org/wiki/TimeML#TIMEX3), and custom dictionary/regular expression concept matching.
+- Labeling functions for clinical concept attribute classification including:
+  * Parent Section Header
+  * Negation / Hypothetical / Historical
+  * Datetime Canonicalization
+  * Event Time Delta (days preceeding doc timestamp)
+  * Laterality
+ 
+
 
 ## Contents
-* [Project Status](#project-status)
-* [Quick Start](#quick-start)
-* [Tutorials](#tutorials)
 * [Installation](#installation)
+* [Tutorials](#tutorials)
+* [Reproducing Paper Results](#reproducing)
+* [Citations](#citations)
 
 ## Installation
 
-We've provided a small set of annotated `pain-anatomy` relations from the 2014 ShARe/CLEF dataset. 
+All requirements can be installed via conda. To create a new virtual enviornment and install all dependencies
 
+	conda create --yes -n rwe python=3.6
+	conda activate rwe
+	conda install pytorch==1.1.0 -c pytorch
+	conda install snorkel==0.9.3 -c conda-forge
+	conda install --name rwe -c conda-forge -c pytorch --file requirements.txt
+	python -m spacy download en
+	
+Once the enviorment is configured, you can launch the tutorial notebooks with
+
+	conda activate rwe
+	cd notebooks
+	jupyter noteboook
 
 ## Tutorials
 
-### Preprocessing
+### Fast Document Preprocessing 
+The [spaCy](https://spacy.io/) pipeline and documentation for processing large document collections is found at `preprocessing/`
+
+### Building Training Sets
+
+We've provided a tutorial for tagging clinical concepts and doing relational inference with MIMIC-III data at `tutorials/`
 
 
+## Reproducing Paper Results
 
+This framework was used in our paper ["Medical Device Surveillance with Electronic Health Records"](https://www.nature.com/articles/s41746-019-0168-z) where we described two relation extraction tasks `{Pain, Anatomy}` and `{Complication, Implant}` used to evaluate the real-world performance of artifical hip replacements using Stanford Healthcare data. 
+  
+The original code was written using [Snorkel v0.7](https://github.com/snorkel-team/snorkel-extraction) and [Snorkel MeTaL]() which are both now deprecated. We've written a new simple tutorial pipeline for use with the latest release of [Snorkel v0.9.4](https://github.com/snorkel-team/snorkel) using MIMIC-III clinical notes. This new library incorporates many of the lessons we learned while building our original models. We strongly recomend using this tutorial as the basis for any new projects. 
 
-### Citations
+The complete labeling functions used in the paper are also available for reference 
+
+* **{Pain, Anatomy}** `legacy/pain.py`
+* **{Complication, Implant}**  `legacy/implant_complications.ipynb`
+  
+
+## Citations
 
 If you make use of any of these tools, please cite
 

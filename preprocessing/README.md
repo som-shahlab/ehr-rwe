@@ -1,15 +1,13 @@
 # Clinical Text NLP Pre-processing
 This pipeline uses spaCy for all NLP parsing. Pipes for clinical text
-tokenization and sentence boundary detection (SBD) are reasonably fast and
+tokenization and sentence boundary detection (SBD) are designed to be fast and
 accurate enough for within-sentence relational inference.
 
 ## 1. Instructions
 For fast loading with Pandas, we note must be in TSV format. The TSV format
-requires only 2 columns: `DOC_NAME` and `TEXT`; any other additional columns
-will be treated as document metadata and added to the `metadata` field in the
-final output JSON file.
+needs a minimum of 2 columns: `DOC_NAME` and `TEXT`; any other additional columns are treated as document metadata and added to the `metadata` field in the final output JSON file.
 
-If your input is a directory of text files, you can conver to TSV files
+If your input is a directory of text files, you can convert to TSV files
 of size `batch_size` using:
 
 	python notes_to_tsv.py \
@@ -26,8 +24,12 @@ Parse TSV files and dump to a JSON container format:
 		--n_procs 4 \
 		--disable ner,tagger,parser \
 		--batch_size 5000
+		
+You should set batch size based on the number of CPU cores you plan on using during processing. Currently load balancing is done manually, so partition your data into some multiple of our `n_procs` while keeping `batch_size` large enought to keep your CPUs busy.
 
 ## 2. Benchmarks
+
+### Sub-sample
 - 50,000 MIMIC-III documents
 - 4 core MacBook Pro 2.5Ghz mid-2015
 
@@ -36,6 +38,18 @@ Parse TSV files and dump to a JSON container format:
 | 1.5 | `ner,parser,tagger` | tokens, SBD|
 | 5.6 | `ner,parser` | tokens, SBD, POS tags|
 | 17.9 | `ner` | tokens, SBD, POS tags, dependency tree |
+
+
+### All of MIMIC-III v1.4
+- 2,083,180 MIMIC-III Documents
+- 16 cores
+
+| Time (minutes) | Disable Pipes | NLP Output |
+|---------------|----------------|------------|
+| 28.6 | `ner,parser,tagger` | tokens, SBD|
+| 52.4 | `ner,parser` | tokens, SBD, POS tags|
+
+
 
 ## 3. JSON Output Format
 The JSON format consists for a document name, a sentence offset index `i`, a list of sentences with NLP markup (e.g., POS tags), and (optional) document metadata.
@@ -47,6 +61,6 @@ The JSON format consists for a document name, a sentence offset index `i`, a lis
 	"words":["CCU","Progress","Note",":","S","-","intubated","&","sedated","."],
 	"abs_char_offsets":[2,6,15,19,22,23,25,35,37,44],
 	"i":0}, ...],
-    "metadata": {}
+"metadata": {...}
 }
 ```
