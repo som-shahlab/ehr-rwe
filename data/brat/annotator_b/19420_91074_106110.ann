@@ -38,10 +38,6 @@ T37	Concept 34541 34550	abdominal
 T38	Concept 749 753	pain
 R1	X-at Arg1:T12 Arg2:T38	
 R2	X-at Arg1:T36 Arg2:T30	
-R3	X-at Arg1:T6 Arg2:T2	
-R4	X-at Arg1:T29 Arg2:T22	
-R5	X-at Arg1:T7 Arg2:T14	
 R6	X-at Arg1:T32 Arg2:T9	
 R7	X-at Arg1:T31 Arg2:T4	
 R8	X-at Arg1:T1 Arg2:T10	
-R9	X-at Arg1:T33 Arg2:T28	
