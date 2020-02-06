@@ -31,15 +31,15 @@ We've put together Jupyter notebooks that walk you through the process of buildi
 Once you have an MIMIC-III account, you can download the `NOTEEVENTS.csv.gz` file directly [here](https://physionet.org/content/mimiciii/1.4/NOTEEVENTS.csv.gz) or via the command line. 
 
 	wget -r -N -c -np \
-	     --user <YOUR_USERNAME> \
+	     --user <PHYSIONET_USERNAME> \
 	     --ask-password \
 	     https://physionet.org/files/mimiciii/1.4/NOTEEVENTS.csv.gz
 	
-The file `NOTEEVENTS.csv.gz` should be moved to `../data/corpora/`
+The file `NOTEEVENTS.csv.gz` should be moved to [`../data/corpora/`](../data/corpora/)
 
 ### 2. Extracting Dataset Splits
 
-Next, we'll extract pre-defined train/test splits from the notes file. This script also applies some minimal preprocessing to assign each note a creation timestamp and transform all MIMIC blinded date mentions into realistic time ranges. This is required so that date math labeling functions work as intended. See `../preprocessing/prep_mimic.py` for details. 
+Next, we'll extract pre-defined train/test splits from the notes file. This script also applies some minimal preprocessing to assign each note a creation timestamp and transform all MIMIC blinded date mentions into realistic time ranges. This is required so that date math labeling functions work as intended. See [`../preprocessing/prep_mimic.py`](../preprocessing/prep_mimic.py) for details. 
 
 	python ../preprocessing/mimic_to_tsv.py \
 		--mimic_notes ../data/corpora/NOTEEVENTS.csv.gz \

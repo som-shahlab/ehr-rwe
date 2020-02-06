@@ -5,7 +5,7 @@ accurate enough for within-sentence relational inference.
 
 ## 1. Instructions
 For fast loading with Pandas, we note must be in TSV format. The TSV format
-needs a minimum of 2 columns: `DOC_NAME` and `TEXT`; any other additional columns are treated as document metadata and added to the `metadata` field in the final output JSON file.
+requires defining 2 columns: `DOC_NAME` and `TEXT`; all additional columns are treated as document metadata and added to the `metadata` field in the final output JSON file.
 
 If your input is a directory of text files, you can convert to TSV files
 of size `batch_size` using:
