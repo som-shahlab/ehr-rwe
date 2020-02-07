@@ -20,6 +20,7 @@ We've put together Jupyter notebooks that walk you through the process of buildi
 	5. Export a probabalistically (weakly) labeled training set 
 
 
+
 - `2_Training_BioBERT_EndModel.ipynb` **Coming Soon!**
    1. Load weakly labeled data
    2. Train a BioBERT model for relational inference. 
@@ -82,6 +83,6 @@ Each clinical concept mention is associated with the following attributes:
 - `Historical	` `∈ {0,1}` 
 - `Time Delta` `∈ ℤ <=0` (in days preceeding document timestamp)
 - `Laterality` `∈ {L, R, Bi}` (e.g., left/right/bilateral hip pain}
+- `Family` `∈ {0,1}` Does the concept refer to the patient or their family?
 
 In the current formulation, each of these maps to a collection of 1 or more labeling functions. Currently, we take the logical OR over these functions to assign attributes, however you can treat each attribute as a weakly supervised task and train a machine learning model if you need better performance.  
-

@@ -14,6 +14,7 @@ This library enables integrating common clinical text heuristics and other noisy
   * Datetime Canonicalization
   * Event Time Delta (in days preceeding doc timestamp)
   * Laterality
+  * Family vs. Patient-linked Concept
  
 
 ## Contents
