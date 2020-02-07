@@ -12,7 +12,7 @@ This library enables integrating common clinical text heuristics and other noisy
   * Parent Section Header
   * Negation / Hypothetical / Historical
   * Datetime Canonicalization
-  * Event Time Delta (in days preceeding doc timestamp)
+  * Event Time Delta (in days preceding doc timestamp)
   * Laterality
   * Family vs. Patient-linked Concept
  
@@ -38,7 +38,7 @@ Once the enviorment is configured, you can launch the tutorial notebooks with
 
 	conda activate rwe
 	cd notebooks
-	jupyter noteboook
+	jupyter notebook
 
 ## Tutorials
 
