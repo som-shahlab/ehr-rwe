@@ -34,10 +34,10 @@ All requirements can be installed via conda. To create a new virtual enviornment
 	conda install --name rwe -c conda-forge -c pytorch --file requirements.txt
 	python -m spacy download en
 	
-Once the enviorment is configured, you can launch the tutorial notebooks with
+Once the environment is configured, you can launch the tutorial notebooks with
 
 	conda activate rwe
-	cd notebooks
+	cd tutorials
 	jupyter notebook
 
 ## Tutorials
