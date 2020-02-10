@@ -1,0 +1,37 @@
+T1	Concept 7056 7061	FLANK
+T2	Concept 1661 1665	pain
+T3	Concept 696 700	pain
+T4	Concept 2532 2549	L hip replacement
+T5	Concept 7098 7102	pain
+T6	Concept 831 846	hip replacement
+T7	Concept 1640 1644	back
+T8	Concept 10487 10492	chest
+T9	Concept 1654 1660	kidney
+T10	Concept 5683 5688	flank
+T11	Concept 299 304	flank
+T12	Concept 3842 3846	BACK
+T13	Concept 2538 2549	replacement
+T14	Concept 1793 1797	back
+T15	Concept 1913 1918	chest
+T16	Concept 1919 1923	pain
+T17	Concept 7062 7066	PAIN
+T18	Concept 10493 10498	pains
+T19	Concept 3855 3865	tenderness
+T20	Concept 835 846	replacement
+T21	Concept 680 695	bilateral flank
+T22	Concept 1798 1802	ache
+T23	Concept 3830 3835	caput
+T24	Concept 305 309	pain
+T25	Concept 2488 2491	DJD
+T26	Concept 1770 1775	pains
+T27	Concept 7082 7097	bilateral flank
+T28	Concept 5689 5693	pain
+T29	Concept 1645 1649	pain
+R1	X-at Arg1:T11 Arg2:T24	
+R2	X-at Arg1:T21 Arg2:T3	
+R3	X-at Arg1:T7 Arg2:T29	
+R4	X-at Arg1:T9 Arg2:T2	
+R5	X-at Arg1:T14 Arg2:T22	
+R6	X-at Arg1:T10 Arg2:T28	
+R7	X-at Arg1:T1 Arg2:T17	
+R8	X-at Arg1:T27 Arg2:T5	

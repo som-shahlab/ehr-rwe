@@ -1,0 +1,10 @@
+T1	Concept 1547 1555	revision
+T2	Concept 5318 5328	prosthesis
+T3	Concept 256 260	pain
+T4	Concept 319 335	hemiarthroplasty
+T5	Concept 5121 5131	dislocated
+T6	Concept 1566 1582	hemiarthroplasty
+T7	Concept 5175 5191	hemiarthroplasty
+T8	Concept 247 255	left hip
+T9	Concept 304 312	revision
+R1	X-at Arg1:T8 Arg2:T3	

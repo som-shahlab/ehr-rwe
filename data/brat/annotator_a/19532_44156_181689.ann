@@ -1,0 +1,18 @@
+T1	Concept 2665 2669	pain
+T2	Concept 1517 1537	Left lower extremity
+T3	Concept 2369 2390	post-surgical changes
+T4	Concept 2582 2604	total knee replacement
+T5	Concept 292 296	pain
+T6	Concept 1603 1607	calf
+T7	Concept 2588 2592	knee
+T8	Concept 2308 2329	total knee prosthesis
+T9	Concept 1608 1612	pain
+T10	Concept 1633 1649	posterior tibial
+T11	Concept 282 291	Left Knee
+T12	Concept 353 364	replacement
+T13	Concept 342 364	total knee replacement
+T14	Concept 2542 2556	osteoarthritis
+T15	Concept 2593 2604	replacement
+T16	Concept 420 434	osteoarthritis
+T17	Concept 529 552	total knee arthroplasty
+R1	X-at Arg1:T11 Arg2:T5	

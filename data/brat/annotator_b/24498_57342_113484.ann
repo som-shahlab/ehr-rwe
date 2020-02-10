@@ -1,0 +1,49 @@
+T1	Concept 14968 14972	pain
+T2	Concept 20849 20853	pain
+T3	Concept 20501 20507	tender
+T4	Concept 14901 14923	total knee replacement
+T5	Concept 14962 14967	chest
+T6	Concept 588 610	total knee replacement
+T7	Concept 3372 3379	buttock
+T8	Concept 10473 10495	total knee replacement
+T9	Concept 649 654	chest
+T10	Concept 393 396	LAD
+T11	Concept 6928 6933	Chest
+T12	Concept 24499 24503	knee
+T13	Concept 14706 14709	LAD
+T14	Concept 249 253	pain
+T15	Concept 14912 14923	replacement
+T16	Concept 594 598	knee
+T17	Concept 10484 10495	replacement
+T18	Concept 243 248	Chest
+T19	Concept 15002 15009	changes
+T20	Concept 749 756	changes
+T21	Concept 17143 17148	chest
+T22	Concept 15062 15069	changes
+T23	Concept 24413 24417	pain
+T24	Concept 3504 3508	pain
+T25	Concept 3572 3577	ankle
+T26	Concept 3254 3259	pains
+T27	Concept 689 696	changes
+T28	Concept 3383 3387	calf
+T29	Concept 20809 20813	knee
+T30	Concept 20488 20492	knee
+T31	Concept 3248 3253	joint
+T32	Concept 3498 3503	chest
+T33	Concept 17149 17153	pain
+T34	Concept 6699 6704	chest
+T35	Concept 3388 3392	pain
+T36	Concept 655 659	pain
+T37	Concept 20797 20801	pain
+T38	Concept 14907 14911	knee
+T39	Concept 6934 6938	pain
+T40	Concept 6705 6709	pain
+T41	Concept 24407 24412	chest
+T42	Concept 599 610	replacement
+R1	X-at Arg1:T18 Arg2:T14	
+R2	X-at Arg1:T9 Arg2:T36	
+R3	X-at Arg1:T34 Arg2:T40	
+R4	X-at Arg1:T11 Arg2:T39	
+R5	X-at Arg1:T5 Arg2:T1	
+R6	X-at Arg1:T37 Arg2:T29	
+R7	X-at Arg1:T41 Arg2:T23	

@@ -1,0 +1,45 @@
+T1	Concept 5125 5129	back
+T2	Concept 2739 2743	pain
+T3	Concept 3865 3873	revision
+T4	Concept 2658 2662	pain
+T5	Concept 1179 1187	hardware
+T6	Concept 896 903	revised
+T7	Concept 5130 5134	pain
+T8	Concept 3768 3776	revision
+T9	Concept 1227 1235	revision
+T10	Concept 5272 5276	back
+T11	Concept 5172 5177	screw
+T12	Concept 5277 5285	soreness
+T13	Concept 2396 2406	lower back
+T14	Concept 916 921	T9-L2
+T15	Concept 2729 2738	abdominal
+T16	Concept 3787 3795	hardware
+T17	Concept 246 250	Back
+T18	Concept 3813 3822	infection
+T19	Concept 1140 1144	pain
+T20	Concept 2434 2438	pain
+T21	Concept 2759 2764	bowel
+T22	Concept 2380 2388	soreness
+T23	Concept 3884 3892	hardware
+T24	Concept 1239 1247	hardware
+T25	Concept 2664 2669	chest
+T26	Concept 2652 2657	chest
+T27	Concept 1196 1201	screw
+T28	Concept 499 506	Removal
+T29	Concept 510 518	hardware
+T30	Concept 3709 3717	stenosis
+T31	Concept 367 373	device
+T32	Concept 1162 1171	loosening
+T33	Concept 826 832	failed
+T34	Concept 332 339	Removal
+T35	Concept 5305 5309	pain
+T36	Concept 5162 5171	loosening
+T37	Concept 251 255	pain
+R1	X-at Arg1:T17 Arg2:T37	
+R2	X-at Arg1:T1 Arg2:T7	
+R3	X-at Arg1:T10 Arg2:T12	
+R4	X-at Arg1:T22 Arg2:T13	
+R5	X-at Arg1:T32 Arg2:T5	
+R6	X-at Arg1:T32 Arg2:T27	
+R7	X-at Arg1:T9 Arg2:T24	
+R8	X-at Arg1:T36 Arg2:T11	

@@ -1,0 +1,25 @@
+T1	Concept 351 373	total knee replacement
+T2	Concept 9905 9909	pain
+T3	Concept 9899 9904	chest
+T4	Concept 1561 1576	Coronary artery
+T5	Concept 5945 5950	chest
+T6	Concept 2789 2793	calf
+T7	Concept 493 496	LAD
+T8	Concept 9701 9705	pain
+T9	Concept 8298 8303	chest
+T10	Concept 1238 1242	pain
+T11	Concept 773 777	pain
+T12	Concept 2020 2043	Bilateral carpal tunnel
+T13	Concept 2794 2804	tenderness
+T14	Concept 8304 8308	pain
+T15	Concept 1849 1857	Low back
+T16	Concept 5951 5955	pain
+T17	Concept 280 284	pain
+T18	Concept 2067 2081	Right Meniscus
+T19	Concept 766 772	R knee
+T20	Concept 1599 1602	LAD
+T21	Concept 362 373	replacement
+T22	Concept 1858 1862	pain
+T23	Concept 269 279	right knee
+T24	Concept 1232 1237	chest
+R1	X-at Arg1:T23 Arg2:T17	

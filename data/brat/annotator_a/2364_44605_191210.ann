@@ -1,0 +1,18 @@
+T1	Concept 971 978	removal
+T2	Concept 6177 6181;6182 6197	Left hip replacement
+T3	Concept 6302 6306	pain
+T4	Concept 6186 6197	replacement
+T5	Concept 1019 1039	Left hip replacement
+T6	Concept 6347 6354	Sternal
+T7	Concept 4355 4367	complication
+T8	Concept 271 276	chest
+T9	Concept 1678 1685	Abdomen
+T10	Concept 963 970	implant
+T11	Concept 1028 1039	replacement
+T12	Concept 1718 1724	tender
+T13	Concept 277 281	pain
+T14	Concept 6395 6403	Leg Left
+T15	Concept 6128 6135	removal
+T16	Concept 4323 4328	wires
+T17	Concept 6119 6126	implant
+R1	X-at Arg1:T8 Arg2:T13	

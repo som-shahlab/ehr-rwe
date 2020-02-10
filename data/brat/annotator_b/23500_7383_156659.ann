@@ -1,0 +1,16 @@
+T1	Concept 1584 1588	wire
+T2	Concept 8590 8599	tightness
+T3	Concept 1687 1693	breast
+T4	Concept 1535 1541	lesion
+T5	Concept 225 230	chest
+T6	Concept 5755 5759	pain
+T7	Concept 1511 1519	stenosis
+T8	Concept 8584 8589	chest
+T9	Concept 5749 5754	chest
+T10	Concept 556 565	tightness
+T11	Concept 1738 1742	back
+T12	Concept 550 555	chest
+T13	Concept 231 235	pain
+T14	Concept 1743 1747	pain
+R1	X-at Arg1:T5 Arg2:T13	
+R2	X-at Arg1:T12 Arg2:T10	

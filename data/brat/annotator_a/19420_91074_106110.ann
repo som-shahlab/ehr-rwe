@@ -1,0 +1,43 @@
+T1	Concept 35317 35326	abdominal
+T2	Concept 11430 11434	pain
+T3	Concept 8473 8481	collapse
+T4	Concept 35397 35407	discomfort
+T5	Concept 35669 35675	PELVIS
+T6	Concept 11420 11429	abdominal
+T7	Concept 12242 12251	abdominal
+T8	Concept 8514 8518	stem
+T9	Concept 29033 29037	pain
+T10	Concept 35327 35331	pain
+T11	Concept 34502 34505	ABD
+T12	Concept 739 748	abdominal
+T13	Concept 34551 34555	pain
+T14	Concept 12252 12256	pain
+T15	Concept 5154 5170	posterior tibial
+T16	Concept 35448 35453	bowel
+T17	Concept 11364 11369	CHEST
+T18	Concept 11465 11474	diaphragm
+T19	Concept 8631 8637	lesion
+T20	Concept 5102 5112	tenderness
+T21	Concept 34506 34512	PELVIS
+T22	Concept 11981 11985	pain
+T23	Concept 12194 12200	PELVIS
+T24	Concept 5097 5101	calf
+T25	Concept 42623 42626	abd
+T26	Concept 8616 8620	stem
+T27	Concept 35665 35668	ABD
+T28	Concept 35731 35735	pain
+T29	Concept 11971 11980	abdominal
+T30	Concept 1854 1858	pain
+T31	Concept 35387 35396	abdominal
+T32	Concept 29023 29032	abdominal
+T33	Concept 35721 35730	abdominal
+T34	Concept 42627 42631	pain
+T35	Concept 1758 1766	bronchus
+T36	Concept 1838 1853	upper abdominal
+T37	Concept 34541 34550	abdominal
+T38	Concept 749 753	pain
+R1	X-at Arg1:T12 Arg2:T38	
+R2	X-at Arg1:T36 Arg2:T30	
+R6	X-at Arg1:T32 Arg2:T9	
+R7	X-at Arg1:T1 Arg2:T10	
+R8	X-at Arg1:T31 Arg2:T4	

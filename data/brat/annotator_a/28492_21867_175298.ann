@@ -1,0 +1,14 @@
+T1	Concept 227 236	Abdominal
+T2	Concept 996 1011	lower abdominal
+T3	Concept 970 973	Abd
+T4	Concept 237 241	Pain
+T5	Concept 474 483	abdominal
+T6	Concept 484 488	pain
+T7	Concept 1012 1022	tenderness
+T8	Concept 6404 6408	pain
+T9	Concept 6398 6403	Chest
+T10	Concept 6264 6268	pain
+R1	X-at Arg1:T1 Arg2:T4	
+R2	X-at Arg1:T5 Arg2:T6	
+R3	X-at Arg1:T2 Arg2:T7	
+R4	X-at Arg1:T9 Arg2:T8	

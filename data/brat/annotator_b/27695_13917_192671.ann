@@ -1,0 +1,17 @@
+T1	Concept 18028 18031	lip
+T2	Concept 353 361	numbness
+T3	Concept 1293 1310	R hip replacement
+T4	Concept 18032 18038	tongue
+T5	Concept 443 451	numbness
+T6	Concept 1299 1310	replacement
+T7	Concept 346 352	tongue
+T8	Concept 436 442	tongue
+T9	Concept 612 620	numbness
+T10	Concept 605 611	tongue
+T11	Concept 907 911	pain
+T12	Concept 900 906	throat
+T13	Concept 374 380	tongue
+T14	Concept 17984 17989	chest
+T15	Concept 17990 17994	pain
+R1	X-at Arg1:T7 Arg2:T2	
+R2	X-at Arg1:T10 Arg2:T9	

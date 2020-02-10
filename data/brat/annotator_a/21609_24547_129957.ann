@@ -1,0 +1,8 @@
+T1	Concept 252 256	pain
+T2	Concept 246 251	chest
+T3	Concept 635 646	replacement
+T4	Concept 624 646	total knee replacement
+T5	Concept 610 619	arthritis
+T6	Concept 651 672	total hip replacement
+T7	Concept 661 672	replacement
+R1	X-at Arg1:T2 Arg2:T1	

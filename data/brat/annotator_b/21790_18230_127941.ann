@@ -1,0 +1,11 @@
+T1	Concept 1680 1702	total knee replacement
+T2	Concept 566 570	pain
+T3	Concept 353 375	total knee replacement
+T4	Concept 276 286	Right knee
+T5	Concept 287 291	pain
+T6	Concept 1691 1702	replacement
+T7	Concept 364 375	replacement
+T8	Concept 424 432	revision
+T9	Concept 578 588	right knee
+R1	X-at Arg1:T4 Arg2:T5	
+R2	X-at Arg1:T2 Arg2:T9	

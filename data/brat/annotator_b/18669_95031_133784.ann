@@ -1,0 +1,12 @@
+T1	Concept 335 346	replacement
+T2	Concept 2866 2879	sacral plexus
+T3	Concept 7953 7958	chest
+T4	Concept 267 275	left hip
+T5	Concept 7755 7759	pain
+T6	Concept 2852 2856	pain
+T7	Concept 7959 7963	pain
+T8	Concept 450 463	osteonecrosis
+T9	Concept 472 485	femoral heads
+T10	Concept 276 280	pain
+T11	Concept 320 346	left total hip replacement
+R1	X-at Arg1:T4 Arg2:T10	

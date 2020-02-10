@@ -1,0 +1,6 @@
+annotator_a/*
+annotator_b/*
+!annotator_a/*.ann
+!annotator_b/*.ann
+!annotator_a/annotation.conf
+!annotator_b/annotation.conf

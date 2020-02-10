@@ -1,0 +1,13 @@
+T1	Concept 569 580	epigastrium
+T2	Concept 1245 1261	hemiarthroplasty
+T3	Concept 545 549	pain
+T4	Concept 1179 1191	degeneration
+T5	Concept 474 483	abdominal
+T6	Concept 484 488	pain
+T7	Concept 221 230	Abdominal
+T8	Concept 231 235	pain
+T9	Concept 799 803	pain
+T10	Concept 789 798	abdominal
+R1	X-at Arg1:T7 Arg2:T8	
+R2	X-at Arg1:T5 Arg2:T6	
+R3	X-at Arg1:T3 Arg2:T1	

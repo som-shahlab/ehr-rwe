@@ -1,0 +1,13 @@
+T1	Concept 1325 1328	Abd
+T2	Concept 1282 1285	abd
+T3	Concept 799 809	prosthesis
+T4	Concept 1298 1308	tenderness
+T5	Concept 1375 1383	prostate
+T6	Concept 1124 1128	pain
+T7	Concept 1197 1203	tongue
+T8	Concept 1144 1148	head
+T9	Concept 1274 1281	L chest
+T10	Concept 1314 1324	left chest
+T11	Concept 1233 1240	trachea
+T12	Concept 781 785	loss
+R1	X-at Arg1:T4 Arg2:T10	

@@ -1,0 +1,19 @@
+T1	Concept 4411 4424	complications
+T2	Concept 259 263	pain
+T3	Concept 4790 4799	narrowing
+T4	Concept 445 461	hardware failure
+T5	Concept 10521 10526	fiber
+T6	Concept 254 258	back
+T7	Concept 4394 4402	hardware
+T8	Concept 5693 5699	cement
+T9	Concept 4719 4725	cement
+T10	Concept 418 432	thoracic spine
+T11	Concept 5021 5030	loosening
+T12	Concept 10530 10534	pain
+T14	Concept 5769 5777	stenosis
+T15	Concept 4971 4979	hardware
+T16	Concept 433 437	pain
+R1	X-at Arg1:T6 Arg2:T2	
+R2	X-at Arg1:T10 Arg2:T16	
+T13	Concept 405 413	cervical
+R3	X-at Arg1:T13 Arg2:T16	

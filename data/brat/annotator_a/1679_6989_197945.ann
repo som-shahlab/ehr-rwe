@@ -1,0 +1,21 @@
+T1	Concept 222 231	right hip
+T2	Concept 258 272	osteoarthritis
+T3	Concept 222 243	right hip replacement
+T4	Concept 925 928	hip
+T5	Concept 887 890	hip
+T6	Concept 118 123	Chest
+T7	Concept 891 895	pain
+T8	Concept 495 500	chest
+T9	Concept 929 940	replacement
+T10	Concept 232 243	replacement
+T11	Concept 4924 4935	replacement
+T12	Concept 124 128	pain
+T13	Concept 4863 4877	osteoarthritis
+T14	Concept 297 302	chest
+T15	Concept 303 307	pain
+T16	Concept 925 940	hip replacement
+T17	Concept 501 511	discomfort
+T18	Concept 4920 4935	hip replacement
+R1	X-at Arg1:T6 Arg2:T12	
+R2	X-at Arg1:T8 Arg2:T17	
+R3	X-at Arg1:T5 Arg2:T7	

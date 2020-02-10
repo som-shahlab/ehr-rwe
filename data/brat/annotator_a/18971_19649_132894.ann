@@ -1,0 +1,8 @@
+T1	Concept 6313 6318	pains
+T2	Concept 602 606	pain
+T3	Concept 353 357	pain
+T4	Concept 6307 6312	chest
+T5	Concept 336 352	substernal chest
+T6	Concept 596 601	chest
+R1	X-at Arg1:T5 Arg2:T3	
+R2	X-at Arg1:T6 Arg2:T2	

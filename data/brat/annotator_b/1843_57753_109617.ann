@@ -1,0 +1,33 @@
+T1	Concept 1985 1989	pain
+T2	Concept 252 256	pain
+T3	Concept 1538 1542	pain
+T4	Concept 17418 17422	pain
+T5	Concept 17549 17553	pain
+T6	Concept 1801 1805	pain
+T7	Concept 5171 5176	bowel
+T8	Concept 247 251	back
+T9	Concept 19513 19517	back
+T10	Concept 5204 5214	tenderness
+T11	Concept 2619 2623	back
+T12	Concept 1529 1537	low back
+T13	Concept 1796 1800	back
+T14	Concept 9211 9217	device
+T15	Concept 19518 19522	pain
+T16	Concept 1604 1608	back
+T17	Concept 8338 8347	sensitive
+T18	Concept 2624 2628	pain
+T19	Concept 8319 8323	bone
+T20	Concept 1969 1973	back
+T21	Concept 17388 17392	Pain
+T22	Concept 17413 17417	back
+T23	Concept 4192 4196	back
+T24	Concept 9188 9196	replaced
+T25	Concept 4197 4201	pain
+T26	Concept 1609 1613	pain
+R1	X-at Arg1:T12 Arg2:T3	
+R2	X-at Arg1:T13 Arg2:T6	
+R3	X-at Arg1:T16 Arg2:T26	
+R4	X-at Arg1:T20 Arg2:T1	
+R5	X-at Arg1:T11 Arg2:T18	
+R7	X-at Arg1:T22 Arg2:T4	
+R8	X-at Arg1:T8 Arg2:T2	

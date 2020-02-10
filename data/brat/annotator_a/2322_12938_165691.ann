@@ -1,0 +1,10 @@
+T1	Concept 2802 2807	chest
+T2	Concept 10173 10177	wire
+T3	Concept 442 447	chest
+T4	Concept 1067 1071	wire
+T5	Concept 1072 1079	removal
+T6	Concept 10178 10185	removal
+T7	Concept 2808 2812	pain
+T8	Concept 448 452	pain
+R1	X-at Arg1:T3 Arg2:T8	
+R2	X-at Arg1:T1 Arg2:T7	

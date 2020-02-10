@@ -1,0 +1,12 @@
+T1	Concept 1547 1555	revision
+T2	Concept 5318 5328	prosthesis
+T3	Concept 256 260	pain
+T5	Concept 5121 5131	dislocated
+T7	Concept 5175 5191	hemiarthroplasty
+T8	Concept 247 255	left hip
+T9	Concept 304 312	revision
+R1	X-at Arg1:T8 Arg2:T3	
+T4	Concept 313 335	L hip hemiarthroplasty
+T6	Concept 1556 1582	right hip hemiarthroplasty
+R4	X-at Arg1:T5 Arg2:T7	
+T10	Concept 2723 2745	leg length discrepency
