@@ -12,7 +12,7 @@ This library enables integrating common clinical text heuristics and other noisy
   * Parent Section Header
   * Negation / Hypothetical / Historical
   * Datetime Canonicalization
-  * Event Time Delta (in days preceeding doc timestamp)
+  * Event Time Delta (in days preceding doc timestamp)
   * Laterality
   * Family vs. Patient-linked Concept
  
@@ -34,11 +34,11 @@ All requirements can be installed via conda. To create a new virtual enviornment
 	conda install --name rwe -c conda-forge -c pytorch --file requirements.txt
 	python -m spacy download en
 	
-Once the enviorment is configured, you can launch the tutorial notebooks with
+Once the environment is configured, you can launch the tutorial notebooks with
 
 	conda activate rwe
-	cd notebooks
-	jupyter noteboook
+	cd tutorials
+	jupyter notebook
 
 ## Tutorials
 
