@@ -78,4 +78,5 @@ class HypotheticalTagger(Tagger):
                         y, _ = mode(L[L.nonzero()])
                         span.props['hypothetical'] = y[0]
                     elif L.any() and self.label_reduction == 'or':
-                        span.props['hypothetical'] = int(1 in L)
+                        if int(1 in L):
+                            span.props['hypothetical'] = 1
