@@ -40,7 +40,7 @@ The file `NOTEEVENTS.csv.gz` should be moved to [`../data/corpora/`](../data/cor
 
 ### 2. Extracting Dataset Splits
 
-Next, we'll extract pre-defined train/test splits from the notes file. This script also applies some minimal preprocessing to assign each note a creation timestamp and transform all MIMIC blinded date mentions into realistic time ranges. This is required so that date math labeling functions work as intended. See [`../preprocessing/prep_mimic.py`](../preprocessing/prep_mimic.py) for details. 
+Next, we'll extract pre-defined train/test splits from the notes file. This script also applies some minimal preprocessing to assign each note a creation timestamp and transform all MIMIC blinded date mentions into realistic time ranges. This is required so that date math labeling functions work as intended. See [`../preprocessing/prep_mimic.py`](../preprocessing/prep_mimic.py) and [`../preprocessing/mimic_to_tsv.py`](../preprocessing/mimic_to_tsv.py) for details. 
 
 	python ../preprocessing/mimic_to_tsv.py \
 		--mimic_notes ../data/corpora/NOTEEVENTS.csv.gz \
