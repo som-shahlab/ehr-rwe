@@ -7,3 +7,4 @@ from .negex import NegExTagger
 from .sections import SectionHeaderTagger, ParentSectionTagger
 from .timex import Timex3Tagger, Timex3NormalizerTagger, TimexNormalizer
 from .timedeltas import TimeDeltaTagger
+from .family import FamilyTagger

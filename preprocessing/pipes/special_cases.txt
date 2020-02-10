@@ -197,3 +197,5 @@ w/
 W/O
 x-ray
 y/o
+y.o
+y.o.

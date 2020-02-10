@@ -205,7 +205,8 @@ class HistoricalTagger(Tagger):
                         span.props[self.prop_name] = y[0]
                     # logical or
                     elif L.any() and self.label_reduction == 'or':
-                        span.props[self.prop_name] = int(1 in L)
+                        if 1 in L:
+                            span.props[self.prop_name] = 1
                     # label matrix
                     elif L.any() and self.label_reduction == 'matrix':
                         span.props[self.prop_name] = L
