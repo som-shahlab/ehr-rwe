@@ -52,7 +52,7 @@ We've provided a tutorial for tagging clinical concepts and doing relational inf
 
 ## Reproducing Paper Results
 
-This framework was used in our paper ["Medical Device Surveillance with Electronic Health Records"](https://www.nature.com/articles/s41746-019-0168-z) where we described two relation extraction tasks `{Pain, Anatomy}` and `{Complication, Implant}` used to evaluate the real-world performance of artifical hip replacements using Stanford Healthcare data. 
+This framework was used in our paper ["Medical Device Surveillance with Electronic Health Records"](https://www.nature.com/articles/s41746-019-0168-z) where we described two relation extraction tasks `{Pain, Anatomy}` and `{Complication, Implant}` used to evaluate the real-world performance of artifical hip replacements using Stanford Health Care data. 
   
 The original code was written using [Snorkel v0.7](https://github.com/snorkel-team/snorkel-extraction) and [Snorkel MeTaL]() which are both now deprecated. We've written a new simple tutorial pipeline for use with the latest release of [Snorkel v0.9.4](https://github.com/snorkel-team/snorkel) using MIMIC-III clinical notes. This new library incorporates many of the lessons we learned while building our original models. We strongly recomend using this tutorial as the basis for any new projects. 
 
