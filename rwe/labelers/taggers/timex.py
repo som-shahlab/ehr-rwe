@@ -229,9 +229,7 @@ class TimexNormalizer(object):
 
         # 2: Normalization Map
         norm_mapping = [
-
             (concat_date, self.date_norm_8),  # 05-Oct-2010 or 30Sep2010
-
             (date_rgx, self.date_norm_1),  # 7/10/2000 | 7-10-2000
             (month_date_year_rgx, self.date_norm_2),  # January 11, 2000
             (month_year_rgx, self.date_norm_3),  # Jan 2009
@@ -240,7 +238,6 @@ class TimexNormalizer(object):
             (year_rgx, self.date_norm_7),  # 2009
             (d_month_year_rgx, self.date_norm_1),  # 01/2009
             (year_month_date, self.date_norm_6)  # 2010-11-12
-
         ]
         self.norm_map = dict(norm_mapping)
 
