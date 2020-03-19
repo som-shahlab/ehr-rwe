@@ -27,8 +27,8 @@ class TextFieldDocTimeTagger(Tagger):
     2: Most recent unambiguous TIMEX mention
     """
 
-    def __init__(self, targets=['DATETIME', 'HEADER'], field='T'):
-        self.targets = targets
+    def __init__(self, targets=None, field='T'):
+        self.targets = targets if targets else ['TIMEX3', 'HEADER']
         self.field = field
 
     def tag(self, document, **kwargs):
@@ -36,10 +36,12 @@ class TextFieldDocTimeTagger(Tagger):
         max_date, sign_dates = None, []
         for i in range(len(document.annotations)):
             header = document.annotations[i]['HEADER'][0] if 'HEADER' in document.annotations[i] else None
-            timexs = document.annotations[i]['DATETIME'] if 'DATETIME' in document.annotations[i] else []
+            timexs = document.annotations[i]['TIMEX3'] if 'TIMEX3' in document.annotations[i] else []
             ts = [ts.normalized for ts in timexs if ts.normalized]
+
             if ts:
                 max_date = max([max_date] + ts) if max_date else max(ts)
+
             if ts and header and re.search("^\s*{}[:]".format(self.field), header.text):
                 sign_dates.extend(ts)
 
