@@ -21,7 +21,7 @@ class SectionHeaderTagger(Tagger):
 
     def _init(self):
         """Regular expression for detecting section headers."""
-        rgx = '(?:^[\s\n]*|[\n])((?:(?:[A-Za-z#.,/\\-]+|24hrs)\s{0,1}){1,' + \
+        rgx = '(?:^[\s\n]*|[\n])((?:(?:[A-Za-z#.,]+|24hrs)\s{0,1}){1,' + \
               str(self.max_token_len) + '}[:])'
         self.matchers = {"HEADER": re.compile(rgx, re.I)}
 
