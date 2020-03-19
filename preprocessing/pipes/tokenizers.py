@@ -73,6 +73,38 @@ def split_on_rgx(sentences, doc, rgx, threshold=250, sent_match=None):
             splits.append(sent)
     return splits
 
+def split_on_phrase_rgx(sentences, doc, rgx, threshold=250):
+    """
+    Split sentence on phrase regex
+
+    :param sentences:
+    :param doc:
+    :param rgx:
+    :param threshold:
+    :return:
+    """
+    splits = []
+    for sent in sentences:
+
+        matches = re.findall(rgx, sent.text)
+        if len(sent.text) >= threshold and matches:
+            offset = sent[0].idx
+            # split up sentence
+            m_idxs = set()
+            for m in matches:
+                m_idxs.add(sent.text.index(m) + offset)
+
+            idxs = [sent[0].i]
+            idxs += [word.i for word in sent if word.idx in m_idxs]
+            idxs += [sent[-1].i + 1]
+
+            idxs = sorted(list(set(idxs)))
+            for i in range(len(idxs) - 1):
+                splits.append(doc[idxs[i]:idxs[i + 1]])
+        else:
+            splits.append(sent)
+    return splits
+
 
 def merge_sentences(doc, sents, merge_terms):
     """
@@ -143,6 +175,11 @@ def ct_sbd_rules(doc, merge_terms=None, max_sent_len=None):
 
     # combine sentences based on a list terms that cannot split
     sents = merge_sentences(doc, sents, merge_terms)
+
+    # header matches
+    # ADDED - disable for negation exp consistence
+    rgx = r'''\s{2,}((?:(?:[A-Z][A-Za-z]+\s){1,4}(?:[A-Za-z]+))[:])'''
+    sents = split_on_phrase_rgx(sents, doc, re.compile(rgx), threshold=1)
 
     # force sentences to have a max length
     if max_sent_len:

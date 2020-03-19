@@ -175,7 +175,7 @@ class HistoricalTagger(Tagger):
     """
 
     def __init__(self, targets, label_reduction='or'):
-        self.prop_name = 'hist'
+        self.prop_name = 'historical'
         self.targets = targets
         self.label_reduction = label_reduction
 
