@@ -178,8 +178,8 @@ def ct_sbd_rules(doc, merge_terms=None, max_sent_len=None):
 
     # header matches
     # ADDED - disable for negation exp consistence
-    rgx = r'''\s{2,}((?:(?:[A-Z][A-Za-z]+\s){1,4}(?:[A-Za-z]+))[:])'''
-    sents = split_on_phrase_rgx(sents, doc, re.compile(rgx), threshold=1)
+    #rgx = r'''\s{2,}((?:(?:[A-Z][A-Za-z]+\s){1,4}(?:[A-Za-z]+))[:])'''
+    #sents = split_on_phrase_rgx(sents, doc, re.compile(rgx), threshold=1)
 
     # force sentences to have a max length
     if max_sent_len:
@@ -266,7 +266,8 @@ def build_token_match_rgx():
         r'''^[0-9]{1,3}[.][0-9]{1,2}[/][0-9]{1,3}[.][0-9]{1,2}$''', # ratio of floats: 0.3/0.7
         r'''^[-]*[0-9]{1,3}[.][0-9]{1,4}$''',       # 100.02 -1.002
         r'''^([0-9]{3}[.]){2}[0-9]{4}$''',          # Phone numbers, 555.555.5555
-        r'''^[V]*[0-9]+[.][0-9]+[A-Z]+$''',         # ICD9 codes: 136.9BJ
+        r'''^[A-Z]*[0-9]+[.][0-9A-Z]+$''',          # ICD9 codes: 136.9BJ
+
         r'''^[0-9]+[.][0-9]+([%]|mm|cm|mg|ml)$''',  # measurement 1.0mm
         r'''[0-9]+[.][0-9]+[-][0-9]+[.][0-9]+''',   # ignore range/intervals 0.1-0.4 mg
         r'''^[0-9]+[.][0-9]+$''',
@@ -345,8 +346,9 @@ def parse_doc(doc: spacy.tokens.Doc,
     :param disable:
     :return:
     """
-    disable = {"ner", "parser", "tagger", "lemmatizer"} if not disable \
-        else disable
+    disable = {"ner", "parser", "tagger", "lemmatizer"} \
+        if disable is None else disable
+
     for position, sent in enumerate(doc.sents):
         parts = defaultdict(list)
 
@@ -381,7 +383,7 @@ def parse_doc(doc: spacy.tokens.Doc,
         yield parts
 
 
-def get_parser(disable: List[str] = None ,
+def get_parser(disable: Set[str] = None ,
                lang: str = 'en',
                merge_terms: Optional[Set] = None,
                max_sent_len: Optional[int] = None) -> Callable:
@@ -398,8 +400,9 @@ def get_parser(disable: List[str] = None ,
     -------
 
     """
-    disable = ["ner", "parser", "tagger", "lemmatizer"] if not disable \
-        else disable
+    disable = {"ner", "parser", "tagger", "lemmatizer"} \
+        if disable is None else disable
+
     merge_terms = {} if not merge_terms else merge_terms
 
     nlp = spacy.load(lang, disable=disable)

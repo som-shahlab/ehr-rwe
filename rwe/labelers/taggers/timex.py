@@ -11,10 +11,10 @@ from collections import defaultdict
 #
 ###############################################################################
 
-meridiems   = r'''([APap][m]|[APap][.][m][.])'''             # AM | PM
-clock_time  = r'''([0-2][0-9][:][0-5][0-9])(:[0-5][0-9])*''' # 10:00 | 10:10:05
+meridiems   = r'''([APap][Mm]|[APap][.][Mm][.])'''            # AM | PM
+clock_time  = r'''([0-2]*[0-9][:][0-5][0-9])(:[0-5][0-9])*''' # 10:00 | 10:10:05
 
-year_range  = r'''(19[0-9][0-9]|20[012][0-9])'''             # 1900 - 2020
+year_range  = r'''(19[0-9][0-9]|20[012][0-9])'''             # 1900 - 2029
 day_range   = r'''(3[01]|[12][0-9]|[0]*[1-9])'''             # 01 - 31
 month_range = r'''([1][012]|[0]*[1-9])'''                    # 01 - 12
 
@@ -188,9 +188,10 @@ class Timex3Tagger(Tagger):
 
 class TimexNormalizer(object):
     """
-    TODO: Refactor! This class is messy
+    TODO: Refactor!!! This class is a messy hack.
 
-    Functionality consists of defining tuples of pattern/normalization pairs. These take the form:
+    Functionality consists of defining tuples of pattern/normalization pairs.
+    These take the form:
         (regex, normalization function)
     which maps a string to a Python datetime object, e.g.,:
         '2001-1-1' -> datetime.datetime(2001, 1, 1, 0, 0))
@@ -206,11 +207,14 @@ class TimexNormalizer(object):
     MONTH_TO_INT['sep'] = 9
     MONTHS_ABBRV = MONTHS_ABBRV.replace('sept|', 'sept|sep|')
 
-    YEARS = r'''20[01][0-9]|19[2-9][0-9]'''
+    YEARS = r'''(19[0-9][0-9]|20[012][0-9])'''
     MONTHS = ""
     DATES = ""
 
-    def __init__(self):
+    def __init__(self, min_year=1900, max_year=2025):
+
+        self.min_year = min_year
+        self.max_year = max_year
 
         self.norm_map = {}
 
@@ -241,7 +245,8 @@ class TimexNormalizer(object):
         ]
         self.norm_map = dict(norm_mapping)
 
-    def date_norm_8(self, m, min_year=1910, max_year=2020):
+    def date_norm_8(self, m):
+
         try:
             abbrvs = TimexNormalizer.MONTHS_ABBRV.lower()
             match = re.search(
@@ -257,31 +262,31 @@ class TimexNormalizer(object):
                 year = int(year)
                 month = TimexNormalizer.MONTH_TO_INT[month]
                 return datetime.datetime(year, month, day)
-        except:
+        except Exception as e:
             print("date_norm_8::date normalization error", e, m)
 
         return None
 
-    def date_norm_7(self, m, min_year=1910, max_year=2020):
+    def date_norm_7(self, m):
         try:
             year = int(m.group().strip())
-            if year < min_year or year > max_year:
+            if year < self.min_year or year > self.max_year:
                 return None
             return datetime.datetime(year, 1, 1)
-        except:
+        except Exception as e:
             return None
 
-    def date_norm_6(self, m, min_year=1910, max_year=2020):
+    def date_norm_6(self, m):
         try:
             args = re.split("[-/]", m.group().strip("'s().,!?").lower())
             year, month, date = map(int, args)
-            if year < min_year or year > max_year:
+            if year < self.min_year or year > self.max_year:
                 return None
             return datetime.datetime(year, month, date)
         except:
             return None
 
-    def date_norm_1(self, m, min_year=1910, max_year=2020):
+    def date_norm_1(self, m):
 
         args = re.split("[-/]", m.group().strip("'s().,!?").lower())
 
@@ -293,7 +298,7 @@ class TimexNormalizer(object):
         # 7/10/2000
         if len(args) == 3:
             month, date, year = list(map(int, args))
-            if year < min_year or (month > 12 or month <= 0) or (
+            if year < self.min_year or (month > 12 or month <= 0) or (
                     date > 31 or date <= 0):
                 return None
             try:
@@ -307,7 +312,7 @@ class TimexNormalizer(object):
             month = args[0] if args[0] < args[1] else args[1]
             year = args[0] if month == args[1] else args[1]
             month, year = int(month), int(year)
-            if month > 12 or month < 1 or year < min_year or year > max_year:
+            if month > 12 or month < 1 or year < self.min_year or year > self.max_year:
                 return None
             return datetime.datetime(month=month, day=1, year=year)
 
@@ -315,12 +320,12 @@ class TimexNormalizer(object):
         elif len(args) == 1:
             month, year = 1, args[0].strip("'s")
             month, year = int(month), int(year)
-            if month > 12 or month < 1 or year < min_year or year > max_year:
+            if month > 12 or month < 1 or year < self.min_year or year > self.max_year:
                 return None
             return datetime.datetime(month=month, day=1, year=year)
 
         else:
-            print("Unrecognized format", s)
+            print("Unrecognized format", m)
 
         return None
 
@@ -399,12 +404,9 @@ class TimexNormalizer(object):
                 if self._filter(timex):
                     continue
                 ts = self._normalize_timex_str(timex.text)
-                # print(timex.text)
                 if ts:
                     timex.normalized = ts
                     normed[i].append(timex)
-                # print(timex.normalized)
-                # print("-"* 50)
 
         return normed
 
@@ -541,8 +543,10 @@ class Timex3NormalizerTagger(Tagger):
         entities = {i: document.annotations[i]['TIMEX3'] for i in
                     document.annotations \
                     if 'TIMEX3' in document.annotations[i]}
+        # 1st pass at normalizing timex entities
         self.normalizer.normalize(entities)
 
+        # 2nd pass
         for i in entities:
             unf = [span for span in entities[i] if span.normalized is None]
             for span in unf:
