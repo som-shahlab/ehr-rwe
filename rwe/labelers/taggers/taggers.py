@@ -18,7 +18,8 @@ def get_text(words, offsets):
 
 def retokenize(s, split_on=r'''([/-])'''):
     """
-    Apply secondary tokenization rule, e.g., split on hyphens or forward slashes.
+    Apply secondary tokenization rule, e.g.,
+    split on hyphens or forward slashes.
     """
     words, offsets = [], []
     #for w, i in zip(s.words, s.offsets):
@@ -68,6 +69,12 @@ class Ngrams(object):
 
 
 def longest_matches(matches):
+    """
+    TODO: Refactor to remove need for this function
+
+    :param matches:
+    :return:
+    """
     # sort on length then end char
     matches = sorted(matches, key=lambda x: len(x.text), reverse=1)
     matches = sorted(matches, key=lambda x: x.char_end, reverse=1)
@@ -79,7 +86,8 @@ def longest_matches(matches):
             curr = m
             continue
         i, j = m.char_start, m.char_end
-        if (i >= curr.char_start and i <= curr.char_end) and (j >= curr.char_start and j <= curr.char_end):
+        if (i >= curr.char_start and i <= curr.char_end) and \
+                (j >= curr.char_start and j <= curr.char_end):
             pass
         else:
             f_matches.append(curr)
@@ -189,6 +197,10 @@ class DictionaryTagger(Tagger):
                              stopwords=self.stopwords)
 
             if m:
+                if sent.position not in document.annotations:
+                    print('ERROR - sent.position not in doc annotations',
+                          sent.position, dict(m))
+                    continue
                 document.annotations[sent.position].update(dict(m))
 
 
