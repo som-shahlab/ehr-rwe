@@ -2,7 +2,7 @@ import re
 import datetime
 from datetime import timedelta
 from rwe.contexts import Span
-from .taggers import Tagger
+from .taggers import Tagger, longest_matches
 from collections import defaultdict
 
 ###############################################################################
@@ -59,8 +59,10 @@ number_11_19 = r'''((thir|four|fif|six|seven|eigh|nine)teen)'''
 number_20_90 = r'''((twenty|thirty|fourty|fifty|sixty|seventy|eighty|ninty)([-]*{N})*)'''.format(N=number_0_10)
 
 # five years ago
-rgx_number_full = r'''{}|{}|{}'''.format(number_0_10, number_11_19, number_20_90)
-rgx_timex_ago   = r'''\b(([1-9][0-9]|({})|few|a) ((year|month|week|day|hour)[s]*) ago)\b'''.format(rgx_number_full)
+rgx_number_full  = r'''{}|{}|{}'''.format(number_0_10, number_11_19, number_20_90)
+#rgx_timex_ago   = r'''\b(([1-9][0-9]|({})|few|a) ((year|month|week|day|hour)[s]*) ago)\b'''.format(rgx_number_full)
+rgx_timex_ago    = r'''\b(([1-9][0-9]*([.][5])*|({})|few|a) ((year|month|week|day|hour)[s]*) ago)\b'''.format(rgx_number_full)
+
 
 # relative temporal expressions
 rgx_day_parts  = r'''\b((this) (morning|afternoon|evening)|(yesterday|today|tomorrow|tonight|tonite)[']*[s]*)\b'''
@@ -70,9 +72,9 @@ rgx_recent_now = r'''\b((current|recent)(ly)*|at this (point|time)|now)\b'''
 rgx_operative  = r'''\b((pre|post|intra)[-]*(operative(ly)*|op))\b'''
 
 regexes = [
-    '\b{}\b'.format(rgx_time),
-    '\b{}\b'.format(rgx_month),
-    '\b{}\b'.format(rgx_day),
+    r'''\b{}\b'''.format(rgx_time),
+    r'''\b{}\b'''.format(rgx_month),
+    r'''\b{}\b'''.format(rgx_day),
     
     rgx_y,
     rgx_mdy,
@@ -110,7 +112,12 @@ class Timex3Tagger(Tagger):
     
     """
 
-    def __init__(self, normalizer=None):
+    def __init__(self, normalizer=None, stopwords=None):
+
+        default_sw = {
+            'may'
+        }
+        self.stopwords = default_sw if not stopwords else stopwords
         self.normalizer = normalizer
         self.tag_name = 'TIMEX3'
         self._init()
@@ -156,16 +163,38 @@ class Timex3Tagger(Tagger):
                         is_longest = False
                 tspan = matches[i][key]
                 if is_longest:
-                    yield (i, tspan)
+                    ignore_span = False
+                    # HACK make certain this doesn't conflict with other
+                    # entity spans
+                    for entity_name in doc.annotations[sent.i]:
+                        for span in doc.annotations[sent.i][entity_name]:
+                            if span and self._is_overlapping(span, tspan):
+                                ignore_span = True
+                                break
+                    if not ignore_span:
+                        yield (i, tspan)
 
-    def tag(self, document, ngrams=6, stopwords=[]):
+    def _is_overlapping(self, a, b):
+        # HACK
+        if a.abs_char_start >= b.abs_char_start and a.abs_char_start <= b.abs_char_end:
+            return True
+        if a.abs_char_end >= b.abs_char_start and a.abs_char_end <= b.abs_char_end:
+            return True
+        if b.abs_char_start >= a.abs_char_start and b.abs_char_start <= a.abs_char_end:
+            return True
+        if b.abs_char_end >= a.abs_char_start and b.abs_char_end <= a.abs_char_end:
+            return True
+        return False
+
+    def tag(self, document, ngrams=6):
         """ """
         matches = defaultdict(list)
         for sidx, match in self._matches(self.matchers[self.tag_name],
                                          document, None, group=0):
-            if match.get_span().lower() in stopwords:
+            if match.get_span().lower() in self.stopwords:
                 continue
             matches[sidx].append(match)
+            print(match)
 
         if self.normalizer:
             self.normalizer.normalize(matches)
@@ -221,8 +250,8 @@ class TimexNormalizer(object):
         # 1: Source Patterns
         date_rgx = r'''\b[0-9]{1,2}[-/][0-9]{1,2}([-/]([0-9]{4}|[0-9]{2}))\b'''
         month_rgx = f'''(({TimexNormalizer.MONTHS_FULL})|({TimexNormalizer.MONTHS_ABBRV})[.]*)'''
-        month_date_year_rgx = month_rgx + r'''\s+(3[01]|[12][0-9]|[1-9])[, ]+(19[0-9]{2}|20[01][0-9])'''
-        month_year_rgx = month_rgx + r'''[, ]*(19[0-9]{2}|20[01][0-9])'''
+        month_date_year_rgx = month_rgx + r'''\s+(3[01]|[12][0-9]|[1-9])[, ]+(19[0-9]{2}|20[012][0-9])'''
+        month_year_rgx = month_rgx + r'''[, ]*(19[0-9]{2}|20[012][0-9])'''
         month_of_year = r'''{} of (19|20)[0-9][0-9]'''.format(month_rgx)
         merge_date_rgx = f'''((31|30)|[12][0-9]|[1-9])({TimexNormalizer.MONTHS_ABBRV})(19|20)*[0-9][0-9]'''
         d_month_year_rgx = r'''([0]*[1-9]|[1][012])[/-](20[01][0-9]|19[2-9][0-9])'''
@@ -293,7 +322,7 @@ class TimexNormalizer(object):
         # for dates of the form 11/13/06, add implied '20' to year
         year = int(args[-1])
         if len(args) == 3 and len(args[-1]) == 2:
-            args[-1] = '20' + args[-1] if year >= 0 and year <= 18 else '19' + args[-1]
+            args[-1] = '20' + args[-1] if year >= 0 and year <= 25 else '19' + args[-1]
 
         # 7/10/2000
         if len(args) == 3:
@@ -411,10 +440,19 @@ class TimexNormalizer(object):
         return normed
 
     def _normalize_timex_str(self, seq):
+        # use pattern that matches the longest string
+        matches = []
         for rgx in self.norm_map:
             m = re.search(rgx, seq, re.I)
             if m:
-                return self.norm_map[rgx](m)
+                matches.append((m, self.norm_map[rgx]))
+                #return self.norm_map[rgx](m)
+
+        matches = sorted(matches, key=lambda x:len(x[0].group()), reverse=1)
+        if matches:
+            m,f = matches[0]
+            return f(m)
+
         return None
 
 
@@ -431,14 +469,22 @@ class Timex3NormalizerTagger(Tagger):
     def __init__(self):
         self.normalizer = TimexNormalizer()
 
+        rgx_today = r'''(today)'''
         self.regexes = [
             (rgx_month_d, self.norm_month_d),
+            (rgx_today, self.norm_today),
             # (rgx_timex_ago, self.norm_x_ago)
             # (rgx_day_parts, self.norm_recent),
             # (rgx_recent_now, self.norm_recent),
             # (rgx_day_times, self.norm_recent)
 
         ]
+
+
+    def norm_today(self, span):
+        if 'doctime' in span.sentence.document.props:
+            return span.sentence.document.props['doctime']
+        return None
 
     def norm_x_ago(self, span):
 
@@ -488,6 +534,7 @@ class Timex3NormalizerTagger(Tagger):
             if re.search(r'''(yesterday)''', span.text.lower(), re.I):
                 tdelta = timedelta(days=1)
                 return doctime - tdelta
+
             elif re.search(r'''(tomorrow)''', span.text.lower(), re.I):
                 tdelta = timedelta(days=1)
                 return doctime + tdelta
@@ -500,6 +547,7 @@ class Timex3NormalizerTagger(Tagger):
     def norm_month_d(self, span):
         """ September 16 """
         try:
+
             doctime = span.sentence.document.props['doctime']
             if not doctime:
                 return None
@@ -524,13 +572,7 @@ class Timex3NormalizerTagger(Tagger):
                     (doctime - ts2).days) else ts2
 
                 ts = datetime.datetime(year, month, day)
-                if ts != alt:
-                    print('FLIPPED')
-                    print(doctime)
-                    print(ts1)
-                    print(ts2)
-                    print('---')
-                    ts = alt
+
 
                 return ts
 
@@ -543,6 +585,7 @@ class Timex3NormalizerTagger(Tagger):
         entities = {i: document.annotations[i]['TIMEX3'] for i in
                     document.annotations \
                     if 'TIMEX3' in document.annotations[i]}
+
         # 1st pass at normalizing timex entities
         self.normalizer.normalize(entities)
 
@@ -554,6 +597,5 @@ class Timex3NormalizerTagger(Tagger):
                     if re.search(rgx, span.text, re.I):
                         span.normalized = normf(span)
                         break
-
 
 

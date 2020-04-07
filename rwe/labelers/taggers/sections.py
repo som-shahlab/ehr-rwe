@@ -117,7 +117,8 @@ class ParentSectionTagger(Tagger):
                 for span in document.annotations[i][layer]:
                     # walk up each sentence to find the major section header
                     for j in range(i, -1, -1):
-                        h = document.annotations[j]['HEADER'][-1]
+                        # TODO - check all headers found in a sentence
+                        h = document.annotations[j]['HEADER'][0]
                         # just assign the closest header tag
                         if not self.major_headers:
                             break

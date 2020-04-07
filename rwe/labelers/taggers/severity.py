@@ -17,6 +17,8 @@
 # sharp-stabbing
 # stabbing
 # throbbing
+# unbearable
+# intense
 
 import re
 import numpy as np
