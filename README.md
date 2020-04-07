@@ -1,4 +1,22 @@
-# Weakly Supervised Clinical Text Classification 
+# Weakly Supervised Clinical Text Classification
+
+## 4/6/2020 COVID-19 Update
+
+An updated version of this pipeline was used in our [Medium blog post](https://medium.com/@nigam/an-ehr-derived-summary-of-the-presenting-symptoms-of-patients-screened-for-sars-cov-2-910ceb1b22b9) on rapidly identifying symptoms of SARS-CoV-2 in ED (emergency department) assessment notes. We've updated this repo to release our labeling functions and code to the research community. 
+
+1. Concept tagging pipeline `concept-tagger.py` 
+2. Jupyter notebook demo for classifying evidence of complex symptoms (e.g., recent international travel). `tutorials/COVID19_Travel_Risk_Factor.ipynb`
+
+**This repo is a work in progress!** We're continuing to iterate on our models and labeling functions. Please let us know if you would like to help contribute! 
+
+```
+python concept-tagger.py \
+--input /Users/fries/Desktop/COVID-Notes-Project/2020_03_30/parsed/whitespace_deps/win60/ \
+--output /users/fries/desktop/ugh/concepts.tsv \
+--concepts umls_merged
+```
+
+## Overview 
 
 This library provides tools for rapidly building clinical text classification tasks using [weakly supervised machine learning](https://hazyresearch.github.io/snorkel/blog/ws_blog_post.html). Obtaining labeled training data is a common roadblock to using machine learning with unstructured medical data such as patient notes. Weakly supervised methods allow domain experts to quickly refine training set construction, enabling the use of modern deep learning without time consuming manual training data curation. 
 
@@ -6,7 +24,7 @@ This library enables integrating common clinical text heuristics and other noisy
 
 ### Features (2/4/2020)
 - Fast text tokenization, sentence boundary detection, and NLP preprocesssing using custom [spaCy](https://spacy.io/) modules optimized for clinical and biomedical text.
-- Lightweight information extraction pipeline for span and relation classification with multiprocessing support via [Joblib](https://joblib.readthedocs.io/en/latest/) and [Dask](https://dask-ml.readthedocs.io/en/latest/joblib.html).
+- Lightweight information extraction pipeline for span and relation classification with multiprocessing support via [Joblib](https://joblib.readthedocs.io/en/latest/).
 - Tagging support for [UMLS](https://www.nlm.nih.gov/research/umls/knowledge_sources/metathesaurus/index.html) concepts, [TIMEX3](https://en.wikipedia.org/wiki/TimeML#TIMEX3), and custom dictionary/regular expression concept matching.
 - Labeling functions for common, clinical concept attribute classification tasks including:
   * Parent Section Header

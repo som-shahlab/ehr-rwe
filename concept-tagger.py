@@ -119,6 +119,7 @@ def get_major_headers():
         'Summary of assessment'
     ]
 
+@timeit
 def main(args):
 
     # =========================================================================
@@ -173,7 +174,7 @@ def main(args):
         target_entities = ['disorder_symptom_finding']
         print(f'[{args.concepts}] Loaded {len(dict_terms)} concept terms')
 
-    # Precomputed entities (we use weakly supervised tags here)
+    # Precomputed entities (we use weakly supervised entities here)
     elif args.concepts == 'inkfish':
 
         drug_fpath = f'{args.entity_tags}/drug.tags.tsv'
@@ -231,8 +232,6 @@ def main(args):
     tagger = TaggerPipelineServer(num_workers=args.n_procs)
     documents = tagger.apply(pipeline, corpus)
     print('Tagging complete')
-
-    return documents
 
     dump_concepts(documents[0],
                   target_concepts=['disorder', 'drug', 'ICD10', 'GPE'],
