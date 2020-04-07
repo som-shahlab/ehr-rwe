@@ -73,8 +73,13 @@ class Span(object):
         self.normalized = None
 
     def __hash__(self):
-        v = (self.sentence.document.name, self.char_start, self.char_end)
+        v = (self.sentence.document.name,
+             self.abs_char_start,
+             self.abs_char_end)
         return hash(v)
+
+    def __eq__(self, other):
+        return False if self.__hash__() != other.__hash__() else True
 
     @property
     def abs_char_start(self):

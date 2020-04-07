@@ -36,7 +36,8 @@ def transform_texts(nlp,
                     corpus,
                     output_dir: str,
                     disable: Set[str] = None,
-                    prefix: str = ''):
+                    prefix: str = '',
+                    keep_whitespace: bool = False):
     """
 
     :param nlp:
@@ -54,7 +55,9 @@ def transform_texts(nlp,
     with out_path.open("w", encoding="utf8") as f:
         doc_names, texts, metadata = zip(*corpus)
         for i, doc in enumerate(nlp.pipe(texts)):
-            sents = list(parse_doc(doc, disable=disable))
+            sents = list(parse_doc(doc,
+                                   disable=disable,
+                                   keep_whitespace=keep_whitespace))
             f.write(
                 json.dumps(
                     {'name': str(doc_names[i]),
@@ -105,7 +108,7 @@ def main(args):
     merge_terms = load_merge_terms(args.merge_terms) \
         if args.merge_terms else {}
 
-    nlp = get_parser(disable=args.disable.split(','),
+    nlp = get_parser(disable=args.disable,
                      merge_terms=merge_terms,
                      max_sent_len=args.max_sent_len)
     
@@ -117,8 +120,9 @@ def main(args):
                         backend="multiprocessing",
                         prefer="processes")
     do = delayed(partial(transform_texts, nlp))
-    tasks = (do(i, batch, args.outputdir, args.disable, args.prefix) for
-             i, batch in enumerate(partitions))
+    tasks = (do(i, batch, args.outputdir, args.disable,
+                args.prefix, args.keep_whitespace) \
+             for i, batch in enumerate(partitions))
     executor(tasks)
 
 
@@ -161,4 +165,5 @@ if __name__ == '__main__':
         v = 'None' if not args.__dict__[attrib] else args.__dict__[attrib]
         logger.info("{:<15}: {:<10}".format(attrib, v))
 
+    args.disable = set(args.disable.split(',') if args.disable else {})
     main(args)

@@ -65,6 +65,8 @@ class TimeDeltaTagger(Tagger):
 
         """
         doc_ts = document.props['doctime']
+        if not doc_ts:
+            return
 
         for i, sent in enumerate(document.sentences):
 

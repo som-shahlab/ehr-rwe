@@ -35,26 +35,30 @@ def LF_underspecified_date(span):
     #dates = annotations['DATETIME'] if 'DATETIME' in annotations else []
     #dates = annotations['TIMEX3'] if 'TIMEX3' in annotations else []
 
-    #if not dates or not doc_ts:
-    #    return ABSTAIN
+    if not doc_ts:
+       return ABSTAIN
 
-    # year
-    for match in re.finditer("(19[0-9]{2}|20[01][0-9])+s*",
-                             span.sentence.text,
-                             re.I):
-        year = int(match.group().strip("s"))
-        if doc_ts.year > year:
-            return POSITIVE
+    try:
+        # year
+        for match in re.finditer("(19[0-9]{2}|20[01][0-9])+s*", span.sentence.text, re.I):
+            year = int(match.group().strip("s"))
+            if doc_ts.year > year:
+                return POSITIVE
+    except:
+        return ABSTAIN
 
     # month/date
     m = re.search(r'''on ((1[12]|[1-9])[/-](3[01]|[12][0-9]|[1-9]))\b''',
                   span.sentence.text,
                   re.I)
     if m:
-        month, date = map(int, re.split("[/-]", m.group(1)))
-        ts = datetime.datetime(doc_ts.year, month, date)
-        if doc_ts > ts:
-            return POSITIVE
+        try:
+            month, date = map(int, re.split("[/-]", m.group(1)))
+            ts = datetime.datetime(doc_ts.year, month, date)
+            if doc_ts > ts:
+                return POSITIVE
+        except:
+            return ABSTAIN
 
     return 0
 
@@ -175,7 +179,7 @@ class HistoricalTagger(Tagger):
     """
 
     def __init__(self, targets, label_reduction='or'):
-        self.prop_name = 'hist'
+        self.prop_name = 'historical'
         self.targets = targets
         self.label_reduction = label_reduction
 

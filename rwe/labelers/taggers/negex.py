@@ -94,8 +94,8 @@ class NegEx(object):
                 del rgxs[category]['right']
             for direction in rgxs[category]:
                 p = rgxs[category][direction]
-                rgxs[category][direction] = re.compile(r"({})(\b|$)".format(p),
-                                                       flags=re.I)
+                rgxs[category][direction] = \
+                    re.compile(r"({})(\b|$)".format(p), flags=re.I)
 
         return rgxs
 
