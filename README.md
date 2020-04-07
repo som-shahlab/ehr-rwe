@@ -9,12 +9,6 @@ An updated version of this pipeline was used in our [Medium blog post](https://m
 
 **This repo is a work in progress!** We're continuing to iterate on our models and labeling functions. Please let us know if you would like to help contribute! 
 
-```
-python concept-tagger.py \
---input /Users/fries/Desktop/COVID-Notes-Project/2020_03_30/parsed/whitespace_deps/win60/ \
---output /users/fries/desktop/ugh/concepts.tsv \
---concepts umls_merged
-```
 
 ## Overview 
 
