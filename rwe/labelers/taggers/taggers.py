@@ -1,7 +1,8 @@
 import re
+import pandas as pd
 from itertools import product
 from rwe.contexts import Span, Relation
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 
 
 def get_text(words, offsets):
@@ -203,6 +204,97 @@ class DictionaryTagger(Tagger):
                     continue
                 document.annotations[sent.position].update(dict(m))
 
+###############################################################################
+#
+# Precomputed Entity Tagger
+#
+###############################################################################
+
+EntityTag = namedtuple(
+    'EntityTag', 'doc_name term abs_char_start abs_char_end'
+)
+
+class PrecomputedEntityTagger(Tagger):
+
+    def __init__(self, fpath, type_name):
+        self.type_name = type_name
+        self.annotations = self._load_annotations(fpath)
+
+    def _load_annotations(self, fpath):
+        annos = defaultdict(list)
+        col_names = ['doc_name', 'term', 'abs_char_start', 'abs_char_end']
+        df = pd.read_csv(fpath,
+                         sep='\t',
+                         names=col_names)
+        for row in df.itertuples():
+            entity = EntityTag(row.doc_name, row.term, row.abs_char_start,
+                               row.abs_char_end)
+            annos[row.doc_name].append(entity)
+        print(f"Loaded {len(annos)} document [{self.type_name}] entities")
+        return annos
+
+    def _get_span_sentence(self, abs_char_start, abs_char_end, sentences):
+        for sent in sentences:
+            end_str_len = len(sent.words[-1])
+            if abs_char_start >= sent.abs_char_offsets[0] and abs_char_end <= (
+                    sent.abs_char_offsets[-1] + end_str_len):
+                return sent
+        return None
+
+    def _is_overlapping(self, a, b):
+        if a.abs_char_start >= b.abs_char_start and a.abs_char_start <= b.abs_char_end:
+            return True
+        if a.abs_char_end >= b.abs_char_start and a.abs_char_end <= b.abs_char_end:
+            return True
+        if b.abs_char_start >= a.abs_char_start and b.abs_char_start <= a.abs_char_end:
+            return True
+        if b.abs_char_end >= a.abs_char_start and b.abs_char_end <= a.abs_char_end:
+            return True
+        return False
+
+    def tag(self, document, ngrams=None):
+        """
+        Use existing labeled data to generate Span objects
+        """
+        if document.name not in self.annotations:
+            return
+
+        n_errs = 0
+        entities = {sent.i: {} for sent in document.sentences}
+        for anno in self.annotations[document.name]:
+            # get parent sentence for this span
+            sent = self._get_span_sentence(anno.abs_char_start,
+                                           anno.abs_char_end,
+                                           document.sentences)
+            if not sent:
+                n_errs += 1
+                continue
+
+            offset = sent.abs_char_offsets[0]
+            span = Span(anno.abs_char_start - offset,
+                        anno.abs_char_end - offset, sentence=sent)
+
+            # HACK -- exclude all entities that are overlapping/nested
+            # within header spans (TODO move to seprate pipeline module)
+            ignore_span = False
+            if 'HEADER' in document.annotations[sent.i]:
+                for h in document.annotations[sent.i]['HEADER']:
+                    if h is not None and self._is_overlapping(h, span):
+                        ignore_span = True
+                        break
+
+            if ignore_span:
+                continue
+
+            if self.type_name not in entities[sent.i]:
+                entities[sent.i][self.type_name] = []
+            entities[sent.i][self.type_name].append(span)
+
+        for i in entities:
+            document.annotations[i].update(entities[i])
+
+        if n_errs > 0:
+            print(f'Skipped {document.name}({n_errs}) entities')
 
 ###############################################################################
 #
